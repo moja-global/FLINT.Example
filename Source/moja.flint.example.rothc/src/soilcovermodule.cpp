@@ -1,14 +1,14 @@
-#include "moja/modules/fullcam/soilcovermodule.h"
+#include "moja/flint/example/rothc/soilcovermodule.h"
 
 #include "moja/flint/variable.h"
 
 #include "moja/notificationcenter.h"
-#include "moja/timeseries.h"
 #include "moja/signals.h"
 
 namespace moja {
-namespace modules {
-namespace fullcam {
+namespace flint {
+namespace example {
+namespace rothc {
 
 void SoilCoverModule::configure(const DynamicObject& config) { }
 
@@ -28,11 +28,13 @@ void SoilCoverModule::onTimingStep() {
 }
 
 void SoilCoverModule::setSoilCovered() {
-	const auto& soilCover = _soilCover->value().extract<TimeSeries>();
-	_isSoilCovered->set_value(soilCover.value() >= 0.5);
+   // This comes from a TimeSeries transform
+   _isSoilCovered->set_value(_soilCover->value() >= 0.5);
 }
 
 }
 }
-} // namespace moja::modules::fullcam
+}
+} // namespace moja::flint::example::rothc
+
 

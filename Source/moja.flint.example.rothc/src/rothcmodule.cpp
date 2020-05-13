@@ -1,19 +1,19 @@
-#include "moja/modules/fullcam/rothcmodule.h"
+#include "moja/flint/example/rothc/rothcmodule.h"
 
 #include "moja/flint/flintexceptions.h"
 #include "moja/flint/ivariable.h"
 #include "moja/flint/ioperation.h"
 
 #include "moja/mathex.h"
-#include "moja/timeseries.h"
 #include "moja/notificationcenter.h"
 #include "moja/signals.h"
 
 #include <boost/format.hpp>
 
 namespace moja {
-namespace modules {
-namespace fullcam {
+namespace flint {
+namespace example {
+namespace rothc {
 
 void RothCModule::configure(const DynamicObject& config) { }
 
@@ -87,41 +87,26 @@ void RothCModule::InitializeForASimulation() {
 
 void RothCModule::UpdateRateProperties() {
 	// Water
-	const auto& rainfall = _rainfall->value().extract<TimeSeries>();
-	double rainPS = rainfall.value();
+   // This comes from a TimeSeries transform
+   double rainPS = _rainfall->value();
 
 	//Temperature
-	const auto& avgAirTemp = _avgAirTemp->value().extract<TimeSeries>();
-	double tm = avgAirTemp.value();
-	double a = (tm < -5.0) ? 0.0 : 47.91 / (1.0 + exp(106.06 / (18.27 + tm)));
-
+    // This comes from a TimeSeries transform
+    double tm = _avgAirTemp->value();
+    double a = (tm < -5.0) ? 0.0 : 47.91 / (1.0 + exp(106.06 / (18.27 + tm)));
 	// Moisture
 	double maxTSMD = _isSoilCovered->value() ? maxTSMDCvrd : maxTSMDBare;
-	const auto& openPanEvap = _openPanEvap->value().extract<TimeSeries>();
-	double evapPS = openPanEvap.value() * evapoOpenRatio;
+    // This comes from a TimeSeries transform
+    double evapPS = _openPanEvap->value() * evapoOpenRatio;
 
 	double netWaterInput = (rainPS - evapPS);
-	double TSMD = _TSMD->value();
-	if (netWaterInput < 0.0) {
-		if (TSMD <= maxTSMD) {
-			TSMD -= netWaterInput;
-			if (TSMD > maxTSMD)
-				TSMD = maxTSMD;
-		}
-		else {
-			// Cancel evaporation in the soil, up to maxTSMD
-			double netWaterInputNoEvap = rainPS;
-			TSMD -= netWaterInputNoEvap;
-			if (TSMD < maxTSMD)
-				TSMD = maxTSMD;
-		}
-	}
-	else {
-		TSMD -= netWaterInput;
-		if (TSMD < 0.0) {
-			TSMD = 0.0;
-		}
-	}
+    double TSMD = _TSMD->value();
+
+    TSMD = std::max(0.0, netWaterInput >= 0
+                             ? TSMD - netWaterInput
+                             : _isSoilCovered->value()
+                                   ? std::min(maxTSMDCvrd, TSMD - netWaterInput)
+                                   : TSMD > maxTSMDBare ? TSMD : std::min(maxTSMDBare, TSMD - netWaterInput));
 	_TSMD->set_value(TSMD);
 
 	double b;
@@ -201,9 +186,12 @@ void RothCModule::onTimingStep() {
 	UpdateRateProperties();
 	SubmitMoves();
 }
+
 }
 }
-} // moja::modules::fullcam
+}
+} // namespace moja::flint::example::rothc
+
 
 
 

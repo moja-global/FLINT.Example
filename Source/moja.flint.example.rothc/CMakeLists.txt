@@ -1,4 +1,4 @@
-set(PACKAGE "base")
+set(PACKAGE "rothc")
 set(LIBNAME "moja.flint.example.${PACKAGE}")
 string(REPLACE "." "_" NEW_PACKAGE "${PACKAGE}")
 string(TOUPPER "${NEW_PACKAGE}" LIBNAME_EXPORT)
@@ -26,22 +26,26 @@ set(PROJECT_SOURCES
 
 set(PROJECT_MODULE_HEADERS
 	#include/moja/flint/example/${PACKAGE}/xxx.h
-	include/moja/flint/example/${PACKAGE}/errorscreenwriter.h
+	#include/moja/flint/example/${PACKAGE}/errorscreenwriter.h
+	include/moja/flint/example/${PACKAGE}/plantresiduemodule.h
+	include/moja/flint/example/${PACKAGE}/rothcmodule.h
+	include/moja/flint/example/${PACKAGE}/soilcovermodule.h
 )
  
 set(PROJECT_MODULE_SOURCES
 	#src/xxx.cpp
-	src/errorscreenwriter.cpp
+	#src/errorscreenwriter.cpp
+	src/plantresiduemodule.cpp
+	src/rothcmodule.cpp
+	src/soilcovermodule.cpp
 )
  
 set(PROJECT_TRANSFORM_HEADERS
 	#include/moja/flint/example/${PACKAGE}/xxx.h
-	include/moja/flint/example/${PACKAGE}/timeseriestransform.h
 )
 
 set(PROJECT_TRANSFORM_SOURCES
 	#src/xxx.cpp
-	src/timeseriestransform.cpp
 )
  
 set(PROJECT_FLINTDATA_HEADERS
