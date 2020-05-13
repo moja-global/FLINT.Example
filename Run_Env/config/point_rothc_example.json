@@ -1,0 +1,153 @@
+{
+  "LocalDomain": {
+    "type": "point",
+    "start_date": "1920/01/01",
+    "end_date": "1924/12/31",
+    "sequencer_library": "internal.flint",
+    "sequencer": "CalendarSequencer",
+    "simulateLandUnit": "simulateLandUnit",
+    "landUnitBuildSuccess": "landUnitBuildSuccess"
+  },
+  "operationManager": {
+    "name": "Simple",
+    "use_kahan": false,
+    "allow_zero_result_transfers": false
+  },
+  "Libraries": {
+    "moja.flint.example.base": {
+      "library": "moja.flint.example.based.dll",
+      "path": "%LOCAL_LIBS%",
+      "pathEXPLICIT": "C:/Development/moja-global/FLINT.example/Source/build/bin/Debug",
+      "type": "external"
+    }
+  },
+  "LibrariesX": {
+    "moja.flint.example.base": "external"
+  },
+  "Pools": [
+    "initialValues",
+    "plantCM",
+    "SoilDPM",
+    "SoilRPM",
+    "SoilBioF",
+    "SoilBioS",
+    "SoilHUM",
+    "SoilIOM",
+    "atmosphere",
+    "offsiteCM",
+    { "Pool 1": 100.0 },
+    { "Pool 2": 100.0 },
+    { "Pool 3": 100.0 }
+  ],
+  "Variables": [
+    {
+      "localDomainId": 1
+    },
+    {
+      "simulateLandUnit": true
+    },
+    {
+      "spatialLocationInfo": {
+        "flintdata": {
+          "library": "internal.flint",
+          "type": "SpatialLocationInfo",
+          "settings": {}
+        }
+      }
+    },
+    {
+      "landUnitBuildSuccess": true
+    },
+    {
+      "landUnitArea": 1.0
+    },
+    {
+      "initSoil": {
+        "dpmaCMInit": 0.02,
+        "rpmaCMInit": 8.681,
+        "biofCMInit": 0.05,
+        "biosCMInit": 0.03,
+        "humsCMInit": 20.96,
+        "inrtCMInit": 43.0,
+        "TSMDInit": 35.21
+      }
+    },
+    {
+      "variable 1": 1.0
+    },
+    {
+      "variable 2": 1.0
+    },
+    {
+      "variable 3": 1.0
+    }
+  ],
+  "Modules": {
+    "TransactionManagerEndOfStepModule": {
+      "library": "internal.flint",
+      "order": 1
+    },
+    "CalendarSequencer": {
+      "library": "internal.flint",
+      "order": 2
+    },
+    "TestModule1": {
+      "enabled": true,
+      "library": "internal.flint",
+      "order": 3,
+      "settings": {
+        "ratio_1": 0.4,
+        "ratio_2": 0.4,
+        "ratio_3": 0.4
+      }
+    },
+    "TestModule2": {
+      "enabled": true,
+      "library": "internal.flint",
+      "order": 4,
+      "settings": {
+        "ratio_1": 0.3,
+        "ratio_2": 0.3,
+        "ratio_3": 0.3
+      }
+    },
+    "TestModule3": {
+      "enabled": true,
+      "library": "internal.flint",
+      "order": 5,
+      "settings": {
+        "ratio_1": 0.6,
+        "ratio_2": 0.6,
+        "ratio_3": 0.6
+      }
+    },
+    "ErrorScreenWriter": {
+      "enabled": true,
+      "library": "moja.flint.example.base",
+      "order": 10,
+      "settings": {
+        "log_errors_max_number": 10
+      }
+    },
+    "OutputerStream": {
+      "enabled": true,
+      "library": "internal.flint",
+      "order": 11,
+      "settings": {
+        "output_filename": "Example_Point_Stock.csv",
+        "output_to_screen": true,
+        "output_info_header": false
+      }
+    },
+    "OutputerStreamFlux": {
+      "enabled": false,
+      "library": "internal.flint",
+      "order": 12,
+      "settings": {
+        "output_filename": "Example_Point_Flux.csv",
+        "output_to_screen": true,
+        "output_info_header": false
+      }
+    }
+  }
+}
