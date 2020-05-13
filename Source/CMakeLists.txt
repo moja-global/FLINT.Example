@@ -18,6 +18,7 @@ set(MOJA_FLINT_EXAMPLE_COMPONENTS "")
 
 # Allow enabling and disabling components
 option(ENABLE_MOJA_FLINT_EXAMPLE_BASE	    "moja.flint.example.base"			ON)
+option(ENABLE_MOJA_FLINT_EXAMPLE_ROTHC	    "moja.flint.example.rothc"			ON)
 
 # Put the libaries and binaries that get built into directories at the
 # top of the build tree rather than in hard-to-find leaf
@@ -79,6 +80,12 @@ if(ENABLE_MOJA_FLINT_EXAMPLE_BASE)
 add_subdirectory(moja.flint.example.base)
 list(APPEND MOJA_FLINT_EXAMPLE_COMPONENTS "moja.flint.example.base")
 endif()
+
+if(ENABLE_MOJA_FLINT_EXAMPLE_ROTHC)
+add_subdirectory(moja.flint.example.rothc)
+list(APPEND MOJA_FLINT_EXAMPLE_COMPONENTS "moja.flint.example.rothc")
+endif()
+
 
 foreach(component ${MOJA_FLINT_EXAMPLE_COMPONENTS})
 message(STATUS "Building: ${component}")

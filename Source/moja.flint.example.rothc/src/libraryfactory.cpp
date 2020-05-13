@@ -1,10 +1,11 @@
-#include "moja/flint/example/base/libraryfactory.h"
+#include "moja/flint/example/rothc/libraryfactory.h"
 
 // Modules
-#include "moja/flint/example/base/errorscreenwriter.h"
+#include "moja/flint/example/rothc/plantresiduemodule.h"
+#include "moja/flint/example/rothc/soilcovermodule.h"
+#include "moja/flint/example/rothc/rothcmodule.h"
 
 // Transforms
-#include "moja/flint/example/base/timeseriestransform.h"
 
 // Flint Data
 
@@ -21,7 +22,7 @@ using moja::flint::FlintDataRegistration;
 using moja::flint::FlintDataFactoryRegistration;
 using moja::flint::DataRepositoryProviderRegistration;
 
-namespace moja { namespace flint { namespace example { namespace base {
+namespace moja { namespace flint { namespace example { namespace rothc {
 
 // Instance of common data structure
 
@@ -29,13 +30,15 @@ extern "C" {
 
 	MOJA_LIB_API int getModuleRegistrations(ModuleRegistration* outModuleRegistrations) {
 		int index = 0;
-		outModuleRegistrations[index++] = ModuleRegistration{ "ErrorScreenWriter", []() -> flint::IModule* { return new ErrorScreenWriter(); } };
+		outModuleRegistrations[index++] = ModuleRegistration{ "PlantResidueModule", []() -> flint::IModule* { return new PlantResidueModule(); } };
+		outModuleRegistrations[index++] = ModuleRegistration{ "SoilCoverModule", []() -> flint::IModule* { return new SoilCoverModule(); } };
+		outModuleRegistrations[index++] = ModuleRegistration{ "RothCModule", []() -> flint::IModule* { return new RothCModule(); } };
 		return index;
 	}
 
 	MOJA_LIB_API int getTransformRegistrations(TransformRegistration* outTransformRegistrations) {
 		int index = 0;
-		outTransformRegistrations[index++] = TransformRegistration{ "TimeSeriesTransform",	[]() -> flint::ITransform* { return new TimeSeriesTransform(); } };
+		//outTransformRegistrations[index++] = TransformRegistration{ "CompositeTransform",	[]() -> flint::ITransform* { return new CompositeTransform(); } };
 		return index;
 	}
 
@@ -58,4 +61,4 @@ extern "C" {
 
 }
 
-}}}} // moja::flint::example::base
+}}}} // moja::flint::example::rothc

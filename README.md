@@ -32,7 +32,9 @@ The solution is to use properties to setup a Debug run in the IDE, making the co
 
 ![VS2019_Debugsetup2](Documentation/VS2019_Debugsetup2.png)
 
-The settings are:
+### Test Module Example
+
+The settings required in VS2019 are:
 
 ```
 # Command
@@ -64,11 +66,22 @@ To match this, the example point config uses an environment variable in the libr
   },
 ```
 
+#### RothC example
+
+There is also a RothC example, to run that project use the smae setup as below but change the command arguments:
+
+```powershell
+# Command Args
+--config config\point_rothc_example.json --logging_config config\logging.debug_on.conf
+```
+
+
+
 ## How to Get Involved?  
 
 moja global welcomes a wide range of contributions as explained in [Contributing document](https://github.com/moja-global/About-moja-global/blob/master/CONTRIBUTING.md) and in the [About moja-global Wiki](https://github.com/moja-global/.github/wiki).  
 
-  
+
 ## FAQ and Other Questions  
 
 * You can find FAQs on the [Wiki](https://github.com/moja.global/.github/wiki).  
