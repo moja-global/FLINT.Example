@@ -13,7 +13,7 @@
     "use_kahan": false,
     "allow_zero_result_transfers": false
   },
-  "Libraries": {
+  "Libraries_win": {
     "moja.flint.example.base": {
       "library": "moja.flint.example.based.dll",
       "path": "%LOCAL_LIBS%",
@@ -21,7 +21,7 @@
       "type": "external"
     }
   },
-  "Libraries_ExampleOfNonPath": {
+  "Libraries": {
     "moja.flint.example.base": "external"
   },
   "Pools": [
@@ -145,7 +145,7 @@
       "settings": {
         "output_filename": "Example_Point_Flux.csv",
         "output_to_screen": false,
-        "output_info_header": true
+        "output_info_header": false
       }
     }
   }

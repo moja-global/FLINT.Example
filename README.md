@@ -75,9 +75,37 @@ There is also a RothC example, to run that project use the smae setup as below b
 --config config\point_rothc_example.json --logging_config config\logging.debug_on.conf
 ```
 
+# Docker
+
+Docker file can be found in the [Dockerfile](./Docker/Dockerfile)
+
+Builds fom the image `mojaglobal/flint:bionic` which can be found in [docker hub](https://hub.docker.com/repository/docker/mojaglobal/flint/general)
+
+```
+#building docker
+docker build --build-arg NUM_CPU=8 -t moja/flint.example:bionic .
+
+# running docker image
+docker run --rm -v /Users/moja/moja-global/FLINT.example/Run_Env:/usr/local/run_env -ti moja/flint.example:bionic bash
+
+# commands to run moja from within the docker
+cd /usr/local/run_env/
+moja.cli --config config/point_example.docker.json --logging_config config/logging.debug_on.conf
+moja.cli --config config/point_rothc_example.docker.json --logging_config config/logging.debug_on.conf
+```
+
+The runs will create output files in the mounted volume directory:
+
+```
+Example_Point_Flux.csv
+Example_Point_Stock.csv
+Example_Rothc_Point_Flux.csv
+Example_Rothc_Point_Stock.csv
+```
+
+
 # TODO
 
-* Added dockers for building and running samples without an IDE
 * Add a spatial example of RothC
     * Need sample rasters in FLINT ready format for some of the RothC required data.
     * Could write a smaple provider that access this data from a different format?
