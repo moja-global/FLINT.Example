@@ -81,28 +81,36 @@ Docker file can be found in the [Dockerfile](./Docker/Dockerfile)
 
 Builds fom the image `mojaglobal/flint:bionic` which can be found in [docker hub](https://hub.docker.com/repository/docker/mojaglobal/flint/general)
 
+#####Building the docker:
 ```
-#building docker
 docker build --build-arg NUM_CPU=8 -t moja/flint.example:bionic .
+```
 
-# running docker image
-docker run --rm -v /Users/moja/moja-global/FLINT.example/Run_Env:/usr/local/run_env -ti moja/flint.example:bionic bash
+#####Commands to run using docker - stock result written to screen and results files create (./Run_Env/*.csv):
+```bash
+docker run --rm -v $(pwd)/Run_Env:/usr/local/run_env -ti moja/flint.example:bionic bash -c "cd /usr/local/run_env/; moja.cli --config config/point_example.docker.json --logging_config config/logging.debug_on.conf"
+docker run --rm -v $(pwd)/Run_Env:/usr/local/run_env -ti moja/flint.example:bionic bash -c "cd /usr/local/run_env/; moja.cli --config config/point_rothc_example.docker.json --logging_config config/logging.debug_on.conf"
+```
 
-# commands to run moja from within the docker
+#####Commands to run moja from within the docker - stock result written to screen and results files create (./Run_Env/*.csv):
+```bash
+docker run --rm -v $(pwd)/Run_Env:/usr/local/run_env -ti moja/flint.example:bionic bash
+```
+
+#####Then inside the running container:
+```bash
 cd /usr/local/run_env/
 moja.cli --config config/point_example.docker.json --logging_config config/logging.debug_on.conf
 moja.cli --config config/point_rothc_example.docker.json --logging_config config/logging.debug_on.conf
 ```
 
-The runs will create output files in the mounted volume directory:
-
+#####The runs will create output files in the mounted volume directory:
 ```
 Example_Point_Flux.csv
 Example_Point_Stock.csv
 Example_Rothc_Point_Flux.csv
 Example_Rothc_Point_Stock.csv
 ```
-
 
 # TODO
 
