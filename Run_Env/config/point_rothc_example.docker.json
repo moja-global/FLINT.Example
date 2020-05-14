@@ -14,6 +14,10 @@
     "allow_zero_result_transfers": false
   },
   "Libraries": {
+    "moja.flint.example.base": "external",
+    "moja.flint.example.rothc": "external"
+  },
+  "Libraries_win": {
     "moja.flint.example.base": {
       "library": "moja.flint.example.based.dll",
       "path": "%LOCAL_LIBS%",
