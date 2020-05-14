@@ -75,6 +75,14 @@ There is also a RothC example, to run that project use the smae setup as below b
 --config config\point_rothc_example.json --logging_config config\logging.debug_on.conf
 ```
 
+# TODO
+
+* Added dockers for building and running samples without an IDE
+* Add a spatial example of RothC
+    * Need sample rasters in FLINT ready format for some of the RothC required data.
+    * Could write a smaple provider that access this data from a different format?
+    * Can produce spatial outputs, make them available for viewing in QGis?
+
 
 
 ## How to Get Involved?  
