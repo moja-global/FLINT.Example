@@ -145,7 +145,7 @@
       "settings": {
         "output_filename": "Example_Point_Flux.csv",
         "output_to_screen": false,
-        "output_info_header": false
+        "output_info_header": true
       }
     }
   }
