@@ -6,23 +6,12 @@
     "sequencer_library": "internal.flint",
     "sequencer": "CalendarSequencer",
     "simulateLandUnit": "simulateLandUnit",
-    "landUnitBuildSuccess": "landUnitBuildSuccess"
-  },
-  "operationManager": {
-    "name": "Simple",
-    "use_kahan": false,
-    "allow_zero_result_transfers": false
-  },
-  "Libraries": {
-    "moja.flint.example.base": {
-      "library": "moja.flint.example.based.dll",
-      "path": "%LOCAL_LIBS%",
-      "pathEXPLICIT": "C:/Development/moja-global/FLINT.example/Source/build/bin/Debug",
-      "type": "external"
+    "landUnitBuildSuccess": "landUnitBuildSuccess",
+    "operationManager": {
+      "name": "Simple",
+      "use_kahan": false,
+      "allow_zero_result_transfers": false
     }
-  },
-  "Libraries_ExampleOfNonPath": {
-    "moja.flint.example.base": "external"
   },
   "Pools": [
     { "Pool 1": 100.0 },

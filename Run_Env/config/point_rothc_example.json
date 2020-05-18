@@ -6,23 +6,11 @@
     "sequencer_library": "internal.flint",
     "sequencer": "CalendarSequencer",
     "simulateLandUnit": "simulateLandUnit",
-    "landUnitBuildSuccess": "landUnitBuildSuccess"
-  },
-  "operationManager": {
-    "name": "Simple",
-    "use_kahan": false,
-    "allow_zero_result_transfers": false
-  },
-  "Libraries": {
-    "moja.flint.example.base": {
-      "library": "moja.flint.example.based.dll",
-      "path": "%LOCAL_LIBS%",
-      "type": "external"
-    },
-    "moja.flint.example.rothc": {
-      "library": "moja.flint.example.rothcd.dll",
-      "path": "%LOCAL_LIBS%",
-      "type": "external"
+    "landUnitBuildSuccess": "landUnitBuildSuccess",
+    "operationManager": {
+      "name": "Simple",
+      "use_kahan": false,
+      "allow_zero_result_transfers": false
     }
   },
   "Pools": [ "initialValues", "plantCM", "SoilDPM", "SoilRPM", "SoilBioF", "SoilBioS", "SoilHUM", "SoilIOM", "atmosphere", "offsiteCM" ],
