@@ -26,6 +26,7 @@ Source/build_docker_debug/
 Source/build2017/
 Source/build.vs2017/
 Source/build_ubuntu
+Source/vscodebuild
 
 bld/
 [Bb]in/
