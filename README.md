@@ -5,9 +5,9 @@ This project gives an example of how to build and run libraries using the FLINT 
 
 There are 3 different environemnts listed in this document to build and run the examples:
 
-* [Visual Studio 2019](##environment:-visual-studio-16-2019-Win64): *develop, run and debug*
-* [Visual Studio Code](##Environment:-Visual-Studio-Code): *develop, run and debug*
-* [Docker](##Environment:-docker): *run only*
+* [Visual Studio 2019](#environment-visual-studio-16-2019-win64): *develop, run and debug*
+* [Visual Studio Code](#environment-visual-studio-code): *develop, run and debug*
+* [Docker](#environment-docker): *run only*
 
 ## **Environment**: Visual Studio 16 2019 Win64
 
