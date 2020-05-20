@@ -5,7 +5,7 @@ This project gives an example of how to build and run libraries using the FLINT 
 
 There are 3 different environemnts listed in this document to build and run the examples:
 
-* [Visual Studio 2019](#environment-visual-studio-16-2019-win64): *develop, run and debug*
+* [Windows - Visual Studio 2019](#environment-visual-studio-16-2019-win64): *develop, run and debug*
 * [Visual Studio Code](#environment-visual-studio-code): *develop, run and debug*
 * [Docker](#environment-docker): *run only*
 
@@ -81,18 +81,17 @@ There is also a RothC example, to run that project use the same setup as below b
 ```
 ## **Environment**: Visual Studio Code
 
-It is also possible to develop, run and debug in Visual Studio Code using Remote Containers. You will need to install [*Visual Studio Code*](https://code.visualstudio.com/) and add the extensions:
+It is also possible to develop, run and debug in Visual Studio Code using Remote Containers. You will need to install [*Visual Studio Code*](https://code.visualstudio.com/) and add the extension:
 
-* [*Remote Development*](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)
 * [*Remote - Container*](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
-Others extensions may be required, please follow instructions during VS Code startup.
+Others extensions may be required, please follow instructions during VS Code startup. Extensions required during development will be installed in the container (listed below).
 
 With these extensions installed, on startup, *VS Code* should ask if you want to open the project in a Container - OR you can press `F1` and select `Remote-Containers: Open folder in Container...`
 
 The *VS Code* project has some `launch.json` settings in place (in the `.vscode` folder), these can run both the base and rothc samples. It is possible to debug into the moja.flint libraries by loading on of the *.cpp/*.h files and setting a breakpoint - OR stepping into a method using the debugger
 
-To build the project the cmake & C++ extensions will be required. These have been specified in the `devcontainer.json` file. To build the library use Cmake Configure, Buold and Install.
+To build the project the cmake and C++ extensions will be required. These have been specified in the `devcontainer.json` file. To build the library use Cmake Configure, Buold and Install.
 
 ```json
 	"extensions": [
@@ -102,8 +101,9 @@ To build the project the cmake & C++ extensions will be required. These have bee
 		"ms-vscode.cmake-tools"
 	]
 ```
+Once the project opens the folder in the dev container, use the cmake commands to configure and build the project. Once this is done you should be ready to run/debug one of the samples.
 
-The libraries require a slightly different paths, so there is a new version of the library configs for *VS Code*. These commands will work from the terminal in the running container.
+NOTE: The libraries require a slightly different paths to work inside the dev-container, so there is a new version of the library configs for *VS Code*. These commands will work from the terminal in the running container after cmake has been successful.
 
 ```bash
 # start in the correct folder
