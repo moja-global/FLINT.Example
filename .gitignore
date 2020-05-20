@@ -8,7 +8,7 @@
 *.sln.docstates
 
 .DS_Store
-.vscode
+#.vscode
 .idea/
     
 # Python env folder
