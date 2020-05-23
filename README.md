@@ -33,6 +33,8 @@ The issue is we want to run with the `moja.cli.exe` from the moja.FLINT project,
 
 The solution is to use properties to setup a Debug run in the IDE, making the command run `moja.cli.exe`.
 
+**NOTE** : All paths used below with `C:\Development\moja-global` will need to be modified to match your system build location of the moja project.
+
 ![VS2019_Debugsetup2](Documentation/VS2019_Debugsetup2.png)
 
 ### Test Module Example
