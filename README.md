@@ -49,7 +49,7 @@ C:\Development\moja-global\FLINT\Source\build\bin\Debug\moja.cli.exe
 --config config\point_example.json --config config\libs.base.win.json  --logging_config logging.debug_on.conf
  
 # Working Directory
-..\..\..\Run_Env
+$(SolutionDir)\..\..\Run_Env
 
 # Environment
 PATH=C:\Development\moja-global\vcpkg\installed\x64-windows\debug\bin;C:\Development\moja-global\FLINT\Source\build\bin\Debug;%PATH%
