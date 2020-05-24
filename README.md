@@ -66,7 +66,6 @@ To match this, the example point config uses an environment variable in the libr
     "moja.flint.example.base": {
       "library": "moja.flint.example.based.dll",
       "path": "%LOCAL_LIBS%",
-      "pathEXPLICIT": "C:/Development/moja-global/FLINT.example/Source/build/bin/Debug",
       "type": "external"
     }
   }
