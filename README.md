@@ -80,6 +80,7 @@ There is also a RothC example, to run that project use the same setup as below b
 # Command Args
 --config config\point_rothc_example.json --config config\libs.base_rothc.win.json --logging_config logging.debug_on.conf
 ```
+
 ## **Environment**: Visual Studio Code
 
 It is also possible to develop, run and debug in Visual Studio Code using Remote Containers. You will need to install [*Visual Studio Code*](https://code.visualstudio.com/) and add the extension:
@@ -115,6 +116,9 @@ moja.cli --config config/point_example.json --config config/libs.base.vscode.jso
 
 # rothc
 moja.cli --config config/point_rothc_example.json --config config/libs.base_rothc.vscode.json  --logging_config logging.debug_on.conf
+
+# Chapman Richards - forest spatial 
+moja.cli --config config/forest_config.json --config config/libs.gdal.chaprich.vscode.json --config_provider config/forest_provider.json
 ```
 
 ## **Environment**: Docker

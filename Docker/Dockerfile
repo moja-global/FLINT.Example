@@ -74,7 +74,7 @@ ENV LD_LIBRARY_PATH $ROOTDIR/lib:$LD_LIBRARY_PATH
 ENV PYTHONPATH $ROOTDIR/lib:$PYTHONPATH
 
 # ==================================================================================================================
-# Moja and Mullion libraries and Binaries
+# Moja libraries and Binaries
 # ==================================================================================================================
 
 COPY --from=builder /usr/local/lib/ /usr/local/lib/
