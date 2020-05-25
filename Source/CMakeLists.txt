@@ -1,9 +1,12 @@
-cmake_minimum_required(VERSION 3.10.0)
+cmake_minimum_required(VERSION 3.1...3.13)
 
-project(flint.example VERSION 1.0.0 LANGUAGES CXX)
+if(${CMAKE_VERSION} VERSION_LESS 3.12)
+    cmake_policy(VERSION ${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION})
+endif()
 
-#turn on using solution folders
-set_property( GLOBAL PROPERTY USE_FOLDERS ON)
+project(flint.example VERSION 1.0.0 
+        DESCRIPTION "moja examples"
+        LANGUAGES CXX)
 
 #turn on parallel builds
 add_compile_options($<$<CXX_COMPILER_ID:MSVC>:/MP>)
@@ -16,17 +19,33 @@ set(MOJA_FLINT_EXAMPLE_VERSION "${MOJA_FLINT_EXAMPLE_VERSION_MAJOR}.${MOJA_FLINT
 # Collect the built libraries and include dirs, the will be used to create the XXX.cmake file
 set(MOJA_FLINT_EXAMPLE_COMPONENTS "")
 
-# Allow enabling and disabling components
-option(ENABLE_MOJA_FLINT_EXAMPLE_BASE	    "moja.flint.example.base"			ON)
-option(ENABLE_MOJA_FLINT_EXAMPLE_ROTHC	    "moja.flint.example.rothc"			ON)
+set(CMAKE_DEBUG_POSTFIX "d" CACHE STRING "Set debug library postfix" FORCE)
 
-# Put the libaries and binaries that get built into directories at the
-# top of the build tree rather than in hard-to-find leaf
-# directories. This simplifies manual testing and the use of the build
-# tree rather than installed Boost libraries.
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+#turn on using solution folders
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
+# Allow enabling and disabling components
+option(ENABLE_MOJA_FLINT_EXAMPLE_BASE	      "moja.flint.example.base"			    ON)
+option(ENABLE_MOJA_FLINT_EXAMPLE_ROTHC	    "moja.flint.example.rothc"			  ON)
+option(ENABLE_MOJA_MODULES_CHAPMAN_RICHARDS "moja.modules.chapman_richards"   ON)
+
+set(default_build_type "Release")
+if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+  message(STATUS "Setting build type to '${default_build_type}' as none was specified.")
+  set(CMAKE_BUILD_TYPE "${default_build_type}" CACHE
+      STRING "Choose the type of build." FORCE)
+  # Set the possible values of build type for cmake-gui
+  set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS
+    "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
+endif()			
 
 # For Debug build types, append a "d" to the library names.
 set(CMAKE_DEBUG_POSTFIX "d" CACHE STRING "Set debug library postfix" FORCE)
@@ -86,6 +105,10 @@ add_subdirectory(moja.flint.example.rothc)
 list(APPEND MOJA_FLINT_EXAMPLE_COMPONENTS "moja.flint.example.rothc")
 endif()
 
+if(ENABLE_MOJA_MODULES_CHAPMAN_RICHARDS)
+add_subdirectory(moja.modules.chapman_richards)
+list(APPEND MOJA_FLINT_EXAMPLE_COMPONENTS "moja.modules.chapman_richards")
+endif()
 
 foreach(component ${MOJA_FLINT_EXAMPLE_COMPONENTS})
 message(STATUS "Building: ${component}")

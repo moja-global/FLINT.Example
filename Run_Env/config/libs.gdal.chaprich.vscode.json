@@ -1,0 +1,14 @@
+{
+  "Libraries": {
+    "moja.modules.gdal": {
+      "library": "moja.modules.gdald.so",
+      "path": "/usr/local/bin",
+      "type": "external"
+    },
+    "moja.modules.chapman_richards": {
+      "library": "moja.modules.chapman_richardsd.so",
+      "path": "/workspaces/FLINT.example/Source/vscodebuild/lib",
+      "type": "external"
+    }
+  }
+}

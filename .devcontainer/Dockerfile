@@ -2,7 +2,8 @@ FROM mojaglobal/vscode-baseimage:bionic
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-ARG NUM_CPU=8
+ARG NUM_CPU=6
+#ARG FLINT_BRANCH=feature/gdal_meta_data_optional
 ARG FLINT_BRANCH=develop
 
 ENV ROOTDIR /usr/local
@@ -34,20 +35,6 @@ RUN git clone --recursive --depth 1 -b ${FLINT_BRANCH} https://github.com/moja-g
 
 RUN ln -s $ROOTDIR/lib/libmoja.modules.* $ROOTDIR/bin
 
-# # FLINT.example
-# RUN git clone --depth 1 https://github.com/moja-global/FLINT.example.git FLINT.example \
-#     && mkdir -p FLINT.example/Source/build && cd FLINT.example/Source/build \
-#     && cmake -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX=$ROOTDIR \
-#              -DENABLE_TESTS:BOOL=OFF \
-#              -DENABLE_MOJA_FLINT_EXAMPLE_BASE:BOOL=ON \
-#              -DENABLE_MOJA_FLINT_EXAMPLE_ROTHC:BOOL=ON \
-#              -DBUILD_SHARED_LIBS=ON  \
-#              -DBoost_USE_STATIC_LIBS=OFF .. \
-# 	&& make --quiet -j $NUM_CPU \
-# 	&& make --quiet install/strip \
-# 	&& make clean \
-#     && cd $ROOTDIR/src
-#
 # ln -s /usr/local/lib/libmoja.flint.example.*.so /usr/local/bin
 # RUN ln -s $ROOTDIR/lib/libmoja.flint.example.*.so $ROOTDIR/bin
 

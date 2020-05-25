@@ -1,0 +1,62 @@
+{
+  "Providers": {
+    "FlintTiled": {
+      "type": "RasterTiledGDAL",
+      "library": "moja.modules.gdal",
+      "tileLatSize": 1.0,
+      "tileLonSize": 1.0,
+      "blockLatSize": 0.1,
+      "blockLonSize": 0.1,
+      "cellLatSize": 0.00025,
+      "cellLonSize": 0.00025,
+      "layers": [
+        {
+          "name": "dma_al4",
+          "layer_type": "GridLayer",
+          "layer_data": "UInt8",
+          "layer_prefix": "",
+          "layer_path": "data/DMA_AL4.tif",
+          "metadata_required": false,
+          "nodata": 255
+        },        
+        {
+          "name": "gez",
+          "layer_type": "GridLayer",
+          "layer_data": "UInt8",
+          "layer_prefix": "",
+          "layer_path": "data/DMA_GEZ.tif",
+          "metadata_required": false,
+          "nodata": 255
+        },        
+        {
+          "name": "gain",
+          "layer_type": "GridLayer",
+          "layer_data": "UInt8",
+          "layer_prefix": "",
+          "layer_path": "data/hansen_data/Hansen_GFC-2018-v1.6_gain.tif",
+          "metadata_required": false,
+          "nodata": 255
+        },
+        {
+          "name": "lossyear",
+          "layer_type": "GridLayer",
+          "layer_data": "UInt8",
+          "layer_prefix": "",
+          "layer_path": "data/hansen_data/Hansen_GFC-2018-v1.6_lossyear.tif",
+          "metadata_required": false,
+          "nodata": 255
+        },
+        {
+          "name": "treecover2000",
+          "layer_type": "GridLayer",          
+          "layer_data": "UInt8",
+          "layer_prefix": "",
+          "layer_path": "data/hansen_data/Hansen_GFC-2018-v1.6_treecover2000.tif",
+          "metadata_required": false,
+          "nodata": 255
+        }
+
+      ]
+    }
+  }
+}

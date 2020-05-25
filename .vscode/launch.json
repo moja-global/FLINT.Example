@@ -55,6 +55,58 @@
                     "ignoreFailures": true
                 }
             ]
+        },
+        {
+            "name": "(gdb) Launch forest point",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "/usr/local/bin/moja.cli",
+            "args": [
+                "--config", 
+                "config/point_forest_config.json",
+                "--config", 
+                "config/libs.gdal.chaprich.vscode.json"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/Run_Env",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Launch forest spatial",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "/usr/local/bin/moja.cli",
+            "args": [
+                "--config", 
+                "config/forest_config.json",
+                "--config", 
+                "config/libs.gdal.chaprich.vscode.json",
+                "--config_provider",
+                "config/forest_provider.json"
+                // "--logging_config", 
+                // "logging.debug_on.conf"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/Run_Env",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
         }
 
     ]

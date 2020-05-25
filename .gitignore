@@ -51,8 +51,9 @@ Run_Envs/docker/**/*.db
 Run_Envs/docker/**/*.pbix
 Run_Envs/docker_aws/**/*.db
 Run_Envs/docker_aws/**/*.pbix
-Run_Envs/docker_aws/worker/project/mulliongroup/data
 Run_Envs/ide/**
+Run_Env/data/output/*
+Run_Env/data_not_required/*
 Sensitive
 export_blk/
 

@@ -9,6 +9,13 @@ There are 3 different environemnts listed in this document to build and run the 
 * [Visual Studio Code](#environment-visual-studio-code): *develop, run and debug*
 * [Docker](#environment-docker): *run only*
 
+and currently four different sample runs:
+
+* Test Module sample at point level
+* RothC sample at point level
+* Chapman richards Point sample
+* Chapman richards Spatial sample
+
 ## **Environment**: Visual Studio 16 2019 Win64
 
 ### Building the project
@@ -37,7 +44,7 @@ The solution is to use properties to setup a Debug run in the IDE, making the co
 
 ![VS2019_Debugsetup2](Documentation/VS2019_Debugsetup2.png)
 
-### Test Module Example
+#### Test Module Example
 
 The settings required in VS2019 are:
 
@@ -80,6 +87,19 @@ There is also a RothC example, to run that project use the same setup as below b
 # Command Args
 --config config\point_rothc_example.json --config config\libs.base_rothc.win.json --logging_config logging.debug_on.conf
 ```
+
+#### Chapman Richards example
+
+Based on the moja repository [Chapman Richards](https://github.com/moja-global/FLINT.chapman_richards), thsi sample can run both a point and spatial version (over Dominica).
+
+```powershell
+# Command Args
+# Point
+--config config/point_forest_config.json --config config/libs.gdal.chaprich.win.json
+# Spatial
+--config config/forest_config.json --config config/libs.gdal.chaprich.win.json --config_provider config/forest_provider.json
+```
+
 ## **Environment**: Visual Studio Code
 
 It is also possible to develop, run and debug in Visual Studio Code using Remote Containers. You will need to install [*Visual Studio Code*](https://code.visualstudio.com/) and add the extension:
@@ -115,6 +135,12 @@ moja.cli --config config/point_example.json --config config/libs.base.vscode.jso
 
 # rothc
 moja.cli --config config/point_rothc_example.json --config config/libs.base_rothc.vscode.json  --logging_config logging.debug_on.conf
+
+# Chapman Richards - forest point
+moja.cli --config config/point_forest_config.json --config config/libs.gdal.chaprich.vscode.json 
+
+# Chapman Richards - forest spatial 
+moja.cli --config config/forest_config.json --config config/libs.gdal.chaprich.vscode.json --config_provider config/forest_provider.json
 ```
 
 ## **Environment**: Docker

@@ -1,0 +1,134 @@
+{
+	"LocalDomain": {
+		"type": "point",
+		"start_date": "2000/01/01",
+		"end_date": "2100/12/31",
+		"sequencer_library": "internal.flint",
+		"sequencer": "CalendarAndEventFlintDataSequencer",
+		"simulateLandUnit": "simulateLandUnit",
+		"landUnitBuildSuccess": "landUnitBuildSuccess",
+		"operationManager": {
+				"name": "Simple",
+				"use_kahan": false,
+				"allow_zero_result_transfers": false
+			}
+		},
+	"Pools": [
+		"initialValues",
+		"atmosphereCM",
+		"aboveGroundCM",
+		"belowGroundCM"
+	],
+	"Variables": [
+		{
+			"localDomainId": 1
+		},
+		{
+			"simulateLandUnit": true
+		},
+		{
+			"landUnitBuildSuccess": true
+		},
+		{
+			"landUnitArea": 1.0
+		},
+		{
+			"forest_types": {
+				"flintdata": {
+					"library": "moja.modules.chapman_richards",
+					"type": "ForestTypeList",
+					"settings": {
+						"items": [
+							{
+								"id": 1,
+								"type": "chapman_richards.ForestType",
+								"name": "Dryland Forests",
+								"carbon_frac_ag": 0.49,
+								"carbon_frac_bg": 0.48,
+								"max": 51.64,
+								"k": 0.037,
+								"m": 0.5,
+								"root_to_shoot": 0.235
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			"eventqueue": {
+				"flintdata": {
+					"library": "internal.flint",
+					"type": "EventQueue",
+					"settings": {
+						"events": [
+							{
+								"date": {
+									"$date": "2001/01/01"
+								},
+								"id": 1,
+								"type": "chapman_richards.ForestPlantEvent",
+								"name": "Plant Dryland Forests",
+								"forest_type_id": 1,
+								"age": 0.0
+							},
+							{
+								"date": {
+									"$date": "2050/01/01"
+								},
+								"id": 1,
+								"type": "chapman_richards.ForestClearEvent",
+								"name": "Clear Dryland Forests"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			"forest_exists": false
+		},
+		{
+			"forest_age": 0.0
+		},
+		{
+			"forest_type": null
+		}
+	],
+	"Modules": {
+		"TransactionManagerEndOfStepModule": {
+			"library": "internal.flint",
+			"order": 1
+		},
+		"CalendarAndEventFlintDataSequencer": {
+			"library": "internal.flint",
+			"order": 2
+		},
+		"DisturbanceEventModule": {
+			"library": "moja.modules.chapman_richards",
+			"order": 3
+		},
+		"ForestGrowthModule": {
+			"library": "moja.modules.chapman_richards",
+			"order": 4
+		},
+		"OutputerStream": {
+			"library": "internal.flint",
+			"order": 6,
+			"settings": {
+				"output_filename": "Forest_Point_Stock.csv",
+				"output_to_screen": true,
+				"output_info_header": true
+			}
+		},
+		"OutputerStreamFlux": {
+			"library": "internal.flint",
+			"order": 7,
+			"settings": {
+				"output_filename": "Forest_Point_Flux.csv",
+				"output_to_screen": false,
+				"output_info_header": true
+			}
+		}
+	}
+}
