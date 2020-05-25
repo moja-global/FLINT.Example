@@ -27,13 +27,15 @@
 			"iteration_type": "BlockIndex",
 			"num_threads": 0,
 			"provider": "FlintTiled",
-			"blocks": [
+			"comment3": "This is an example of how to run the a single block of Dominica",
+			"single_blocks": [
 				{
 					"tile_index": 26758,
 					"block_index": 35
 				}
 			],
-			"all_blocks": [
+			"comment4": "This is an example of how to run the whole of Dominica",
+			"blocks": [
 				{
 					"tile_index": 26758,
 					"block_index": 35
