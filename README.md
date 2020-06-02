@@ -225,6 +225,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/leitchy"><img src="https://avatars0.githubusercontent.com/u/3417817?v=4" width="100px;" alt=""/><br /><sub><b>James Leitch</b></sub></a><br /><a href="https://github.com/moja-global/FLINT.example/commits?author=leitchy" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/malfrancis"><img src="https://avatars0.githubusercontent.com/u/5935221?v=4" width="100px;" alt=""/><br /><sub><b>Mal</b></sub></a><br /><a href="https://github.com/moja-global/FLINT.example/commits?author=malfrancis" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/sjbcastro"><img src="https://avatars3.githubusercontent.com/u/15131402?v=4" width="100px;" alt=""/><br /><sub><b>sjbcastro</b></sub></a><br /><a href="https://github.com/moja-global/FLINT.example/commits?author=sjbcastro" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/parth-gr"><img src="https://avatars0.githubusercontent.com/u/50455445?v=4" width="100px;" alt=""/><br /><sub><b>Parth Arora</b></sub></a><br /><a href="https://github.com/moja-global/FLINT.example/commits?author=parth-gr" title="Documentation">📖</a></td>
   </tr>
 </table>
 
