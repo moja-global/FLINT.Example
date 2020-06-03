@@ -2,7 +2,7 @@
   "Libraries": {
     "moja.modules.gdal": {
       "library": "moja.modules.gdald.dll",
-      "path": "%LOCAL_LIBS%",
+      "path": "%MOJA_LIBS%",
       "type": "external"
     },
     "moja.modules.chapman_richards": {

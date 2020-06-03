@@ -61,6 +61,7 @@ $(SolutionDir)\..\..\Run_Env
 # Environment
 PATH=C:\Development\moja-global\vcpkg\installed\x64-windows\debug\bin;C:\Development\moja-global\FLINT\Source\build\bin\Debug;%PATH%
 LOCAL_LIBS=$(OutDir)
+MOJA_LIBS=C:\Development\moja-global\FLINT\Source\build\bin\Debug
 ```
 
 With Envs: `PATH` for various libraries built in the Moja stage and `LOCAL_LIBS` so we can modify the explicit path for our example config to load libraries from this vs build (the default is the same location as the EXE).

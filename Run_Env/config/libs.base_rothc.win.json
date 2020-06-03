@@ -7,7 +7,7 @@
     },
     "moja.flint.example.rothc": {
       "library": "moja.flint.example.rothcd.dll",
-      "path": "%LOCAL_LIBS%",
+      "path": "%MOJA_LIBS%",
       "type": "external"
     }
   }
