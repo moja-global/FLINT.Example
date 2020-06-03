@@ -39,7 +39,7 @@ void RothCModule::ComputeTSMDParams(double clayFrac, double sampleDepth, double 
 		auto str = ((boost::format("maxTSMDCvrd (%1%) && maxTSMDBare (%2%) > k0Plus") % maxTSMDCvrd % maxTSMDBare).str());
 		BOOST_THROW_EXCEPTION(flint::SimulationError()
 			<< flint::Details(str)
-			<< flint::LibraryName("moja.modules.fullcam")
+			<< flint::LibraryName("moja.flint.example.rothc")
 			<< flint::ModuleName("RothCModule::ComputeTSMDParams")
 			<< flint::ErrorCode(2));
 	}
