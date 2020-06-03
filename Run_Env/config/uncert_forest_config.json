@@ -1,0 +1,436 @@
+{
+	"LocalDomain": {
+		"type": "spatial_tiled",
+		"start_date": "2000/01/01",
+		"end_date": "2020/12/31",
+		"sequencer_library": "internal.flint",
+		"sequencer": "CalendarAndEventFlintDataSequencer",
+		"simulateLandUnit": "simulateLandUnit",
+		"landUnitBuildSuccess": "landUnitBuildSuccess",
+		"landscape_cell": {
+			"comment1": "This cell iterating landscape is setup to run a single cell (26758,35,98697)",
+			"comment2": "Name parent 'landscape' if you want to use this",
+			"iteration_type": "CellIndex",
+			"num_threads": 0,
+			"provider": "FlintTiled",
+			"cells": [
+				{
+					"tile_index": 26758,
+					"block_index": 35,
+					"cell_index": 98697
+				}
+			]
+		},		
+		"landscape": {
+			"comment1": "This block iterating landscape is setup to run a single block (26758,35)",
+			"comment2": "Name parent 'landscape' if you want to use this",
+			"iteration_type": "BlockIndex",
+			"num_threads": 0,
+			"provider": "FlintTiled",
+			"comment3": "This is an example of how to run the a single block of Dominica",
+			"Xblocks": [
+				{
+					"tile_index": 26758,
+					"block_index": 35
+				},
+				{
+					"tile_index": 26758,
+					"block_index": 36
+				},
+				{
+					"tile_index": 26758,
+					"block_index": 45
+				}
+			],
+			"comment4": "This is an example of how to run the whole of Dominica",
+			"blocks": [
+				{
+					"tile_index": 26758,
+					"block_index": 35
+				},
+				{
+					"tile_index": 26758,
+					"block_index": 36
+				},
+				{
+					"tile_index": 26758,
+					"block_index": 45
+				},
+				{
+					"tile_index": 26758,
+					"block_index": 46
+				},
+				{
+					"tile_index": 26758,
+					"block_index": 47
+				},
+				{
+					"tile_index": 26758,
+					"block_index": 55
+				},
+				{
+					"tile_index": 26758,
+					"block_index": 56
+				},
+				{
+					"tile_index": 26758,
+					"block_index": 57
+				},
+				{
+					"tile_index": 26758,
+					"block_index": 65
+				},
+				{
+					"tile_index": 26758,
+					"block_index": 66
+				},
+				{
+					"tile_index": 26758,
+					"block_index": 67
+				},
+				{
+					"tile_index": 26758,
+					"block_index": 76
+				},
+				{
+					"tile_index": 26758,
+					"block_index": 77
+				}
+			]
+		},
+		"operationManager": {
+			"name": "Simple",
+			"use_kahan": false,
+			"allow_zero_result_transfers": false
+		},
+		"settings":{
+			"sampling_interval": 10000
+		}
+	},
+	"Pools": [
+		"initialValues",
+		"atmosphereCM",
+		"aboveGroundCM",
+		"belowGroundCM"
+	],
+	"Uncertanty": {
+		"enabled": true,
+		"iterations": 100,
+		"sampling":{},
+		"variables": [
+			{
+				"variable": "forest_types",
+				"replacements": [
+					{
+						"query": {
+							"id": 13
+						},
+						"replace": {
+							"k": {
+								"type": "triangular",
+								"seed": 12345,
+								"min": 0.02,
+								"peak": 0.037,
+								"max": 0.045
+							},
+							"max":{
+								"type": "normal",
+								"seed": 12345,
+								"mean": 51.64,
+								"std_dev": 2
+							}
+						}
+					}
+				]
+			}
+		]
+	},
+	"Variables": [
+		{
+			"localDomainId": 1
+		},
+		{
+			"simulationUnitData": {
+				"flintdata": {
+					"library": "internal.flint",
+					"type": "SimulationUnitDataBase"
+				}
+			}
+		},
+		{
+			"uncertaintySimulationUnitData": {
+				"flintdata": {
+					"library": "internal.flint",
+					"type": "UncertaintySimulationUnitData"
+				}
+			}
+		},
+		{
+			"spatialLocationInfo": {
+				"flintdata": {
+					"library": "internal.flint",
+					"type": "SpatialLocationInfo"
+				}
+			}
+		},
+		{
+			"simulateLandUnit": true
+		},
+		{
+			"landUnitBuildSuccess": true
+		},
+		{
+			"landUnitArea": 1.0
+		},
+		{
+			"forest_types": {
+				"flintdata": {
+					"library": "moja.modules.chapman_richards",
+					"type": "ForestTypeList",
+					"settings": {
+						"items": [
+							{
+								"id": 13,
+								"type": "chapman_richards.ForestType",
+								"name": "Tropical dry forest",
+								"carbon_frac_ag": 0.49,
+								"carbon_frac_bg": 0.48,
+								"max": 52,
+								"k": 0.037,
+								"m": 0.5,
+								"root_to_shoot": 0.235
+							},
+							{
+								"id": 11,
+								"type": "chapman_richards.ForestType",
+								"name": "Tropical rainforest",
+								"carbon_frac_ag": 0.5,
+								"carbon_frac_bg": 0.49,
+								"max": 132,
+								"k": 0.035,
+								"m": 0.4,
+								"root_to_shoot": 0.4
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			"eventqueue": {
+				"flintdata": {
+					"library": "internal.flint",
+					"type": "EventQueue"
+				}
+			}
+		},
+		{
+			"forest_exists": false
+		},
+		{
+			"forest_age": 0.0
+		},
+		{
+			"forest_type": null
+		},
+		{
+			"forest_cover": {
+				"transform": {
+					"library": "moja.modules.chapman_richards",
+					"type": "HansenForestCoverTransform"
+				}
+			}
+		},
+		{
+			"tree_gain": {
+				"transform": {
+					"data_id": "gain",
+					"library": "internal.flint",
+					"provider": "FlintTiled",
+					"type": "LocationIdxFromFlintDataTransform"
+				}
+			}
+		},
+		{
+			"tree_loss_year": {
+				"transform": {
+					"data_id": "lossyear",
+					"library": "internal.flint",
+					"provider": "FlintTiled",
+					"type": "LocationIdxFromFlintDataTransform"
+				}
+			}
+		},
+		{
+			"tree_cover_2000": {
+				"transform": {
+					"data_id": "treecover2000",
+					"library": "internal.flint",
+					"provider": "FlintTiled",
+					"type": "LocationIdxFromFlintDataTransform"
+				}
+			}
+		},
+		{
+			"admin_level": {
+				"transform": {
+					"data_id": "dma_al4",
+					"library": "internal.flint",
+					"provider": "FlintTiled",
+					"type": "LocationIdxFromFlintDataTransform"
+				}
+			}
+		},
+		{
+			"gez": {
+				"transform": {
+					"data_id": "gez",
+					"library": "internal.flint",
+					"provider": "FlintTiled",
+					"type": "LocationIdxFromFlintDataTransform"
+				}
+			}
+		},
+		{
+			"reporting_classifiers": {
+				"transform": {
+					"library": "internal.flint",
+					"type": "CompositeTransform",
+					"vars": [
+						"admin_level", "gez"
+					],
+					"allow_nulls": true
+				}
+			}
+		},
+		{
+			"run_statistics": {
+				"flintdata": {
+					"library": "moja.modules.chapman_richards",
+					"type": "RunStatistics",
+					"settings": {}
+				}
+			}
+		}
+	],
+	"Modules": {
+		"TransactionManagerEndOfStepModule": {
+			"library": "internal.flint",
+			"order": 1
+		},
+		"CalendarAndEventFlintDataSequencer": {
+			"library": "internal.flint",
+			"order": 2
+		},
+		"BuildLandUnitModule": {
+			"library": "moja.modules.chapman_richards",
+			"order": 3
+		},
+		"DisturbanceEventModule": {
+			"library": "moja.modules.chapman_richards",
+			"order": 4
+		},
+		"ForestGrowthModule": {
+			"library": "moja.modules.chapman_richards",
+			"order": 5
+		},
+		"AggregatorUncertaintyLandUnit": {
+			"enabled": true,
+			"library": "internal.flint",
+			"order": 7,
+			"settings": {
+				"output_month_12_only": true,
+				"tileIndex_dim_enabled": true,
+				"blockIndex_dim_enabled": true,
+				"cellIndex_dim_enabled": false,
+				"do_stock": true,
+				"do_run_statistics": true,
+				"reporting_classifier_set": "reporting_classifiers"
+			}
+		},
+		"AggregatorError": {
+			"enabled": true,
+			"library": "internal.flint",
+			"order": 8,
+			"settings": {
+				"log_errors": true,
+				"log_errors_max_number": 1000,
+				"log_errors_per_block": true
+			}
+		},
+		"ErrorScreenWriter": {
+			"enabled": true,
+			"library": "internal.flint",
+			"order": 9
+		},
+		"UncertaintyLandUnitSQLiteWriter": {
+			"enabled": true,
+			"library": "internal.flint",
+			"order": 10,
+			"settings": {
+				"databasename": "forests_output_uncert.db",
+				"Xdatabasename": "./data/output/results/dbs/output.db"
+			}
+		},
+		"WriteVariableGeotiff": {
+			"enabled": true,
+			"library": "moja.modules.gdal",
+			"order": 11,
+			"settings": {
+				"output_path": "./data/output/results/spatial_outputs/grids",
+				"use_indexes_for_folder_name": true,
+				"items": [
+					{
+						"enabled": true,
+						"data_name": "atmosphereCM",
+						"pool_name": "atmosphereCM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999,
+						"apply_area_adjustment": true
+					},
+					{
+						"enabled": true,
+						"data_name": "aboveGroundCM",
+						"pool_name": "aboveGroundCM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999,
+						"apply_area_adjustment": true
+					},
+					{
+						"enabled": true,
+						"data_name": "belowGroundCM",
+						"pool_name": "belowGroundCM",
+						"variable_data_type": "float",
+						"on_notification": "OutputStep",
+						"output_annual_only": true,
+						"nodata_value": -9999,
+						"apply_area_adjustment": true
+					},
+					{
+						"enabled": true,
+						"data_name": "simulate_land_unit",
+						"variable_name": "simulateLandUnit",
+						"variable_data_type": "UInt8",
+						"on_notification": "TimingShutdown",
+						"nodata_value": 255,
+						"apply_area_adjustment": true
+					},
+					{
+						"enabled": true,
+						"data_name": "errors",
+						"variable_name": "spatialLocationInfo",
+						"property_name": "errorCode",
+						"variable_data_type": "UInt8",
+						"on_notification": "Error",
+						"nodata_value": 255,
+						"apply_area_adjustment": true
+					}
+				]
+			}
+		}
+	}
+}
