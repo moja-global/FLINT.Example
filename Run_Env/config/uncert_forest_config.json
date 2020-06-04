@@ -28,7 +28,7 @@
 			"num_threads": 0,
 			"provider": "FlintTiled",
 			"comment3": "This is an example of how to run the a single block of Dominica",
-			"Xblocks": [
+			"blocks": [
 				{
 					"tile_index": 26758,
 					"block_index": 35
@@ -40,10 +40,14 @@
 				{
 					"tile_index": 26758,
 					"block_index": 45
+				},
+				{
+					"tile_index": 26758,
+					"block_index": 46
 				}
 			],
 			"comment4": "This is an example of how to run the whole of Dominica",
-			"blocks": [
+			"Xblocks": [
 				{
 					"tile_index": 26758,
 					"block_index": 35
@@ -361,12 +365,12 @@
 		"ErrorScreenWriter": {
 			"enabled": true,
 			"library": "internal.flint",
-			"order": 9
+			"order": 12
 		},
 		"UncertaintyLandUnitSQLiteWriter": {
 			"enabled": true,
 			"library": "internal.flint",
-			"order": 10,
+			"order": 14,
 			"settings": {
 				"databasename": "forests_output_uncert.db",
 				"Xdatabasename": "./data/output/results/dbs/output.db"
@@ -375,7 +379,7 @@
 		"WriteVariableGeotiff": {
 			"enabled": true,
 			"library": "moja.modules.gdal",
-			"order": 11,
+			"order": 16,
 			"settings": {
 				"output_path": "./data/output/results/spatial_outputs/grids",
 				"use_indexes_for_folder_name": true,

@@ -7,7 +7,7 @@
 		"sequencer": "CalendarAndEventFlintDataSequencer",
 		"simulateLandUnit": "simulateLandUnit",
 		"landUnitBuildSuccess": "landUnitBuildSuccess",
-		"landscape_cell": {
+		"landscape_cells": {
 			"comment1": "This cell iterating landscape is setup to run a single cell (26758,35,98697)",
 			"comment2": "Name parent 'landscape' if you want to use this",
 			"iteration_type": "CellIndex",
@@ -40,6 +40,10 @@
 				{
 					"tile_index": 26758,
 					"block_index": 45
+				},
+				{
+					"tile_index": 26758,
+					"block_index": 46
 				}
 			],
 			"comment4": "This is an example of how to run the whole of Dominica",
@@ -104,7 +108,7 @@
 			"allow_zero_result_transfers": false
 		},
 		"settings":{
-			"sampling_interval": 1000
+			"Xsampling_interval": 10000
 		}
 	},
 	"Pools": [
@@ -113,38 +117,6 @@
 		"aboveGroundCM",
 		"belowGroundCM"
 	],
-	"Uncertanty": {
-		"enabled": true,
-		"iterations": 10,
-		"sampling":{},
-		"variables": [
-			{
-				"variable": "forest_types",
-				"replacements": [
-					{
-						"query": {
-							"id": 13
-						},
-						"replace": {
-							"k": {
-								"type": "triangular",
-								"seed": 12345,
-								"min": 0.02,
-								"peak": 0.037,
-								"max": 0.045
-							},
-							"max":{
-								"type": "normal",
-								"seed": 12345,
-								"mean": 51.64,
-								"std_dev": 2
-							}
-						}
-					}
-				]
-			}
-		]
-	},
 	"Variables": [
 		{
 			"localDomainId": 1
@@ -152,16 +124,8 @@
 		{
 			"simulationUnitData": {
 				"flintdata": {
-					"library": "internal.flint",
-					"type": "SimulationUnitDataBase"
-				}
-			}
-		},
-		{
-			"uncertaintySimulationUnitData": {
-				"flintdata": {
-					"library": "internal.flint",
-					"type": "UncertaintySimulationUnitData"
+					"library": "moja.modules.chapman_richards",
+					"type": "SimulationUnitData"
 				}
 			}
 		},
@@ -334,9 +298,14 @@
 			"library": "moja.modules.chapman_richards",
 			"order": 5
 		},
-		"AggregatorUncertaintyLandUnit": {
-			"enabled": true,
+		"AggregatorStockStep": {
+			"enabled": false,
 			"library": "internal.flint",
+			"order": 6
+		},
+		"AggregatorLandUnit": {
+			"enabled": true,
+			"library": "moja.modules.chapman_richards",
 			"order": 7,
 			"settings": {
 				"output_month_12_only": true,
@@ -350,11 +319,11 @@
 		},
 		"AggregatorError": {
 			"enabled": true,
-			"library": "internal.flint",
+			"library": "moja.modules.chapman_richards",
 			"order": 8,
 			"settings": {
 				"log_errors": true,
-				"log_errors_max_number": 32000,
+				"log_errors_max_number": 1000,
 				"log_errors_per_block": true
 			}
 		},
@@ -363,12 +332,13 @@
 			"library": "internal.flint",
 			"order": 9
 		},
-		"UncertaintyLandUnitSQLiteWriter": {
+		"LandUnitSQLiteWriter": {
 			"enabled": true,
-			"library": "internal.flint",
+			"library": "moja.modules.chapman_richards",
 			"order": 10,
 			"settings": {
-				"databasename": "./data/output/results/dbs/output.db"
+				"databasename": "forests_output.db",
+				"Xdatabasename": "./data/output/results/dbs/output.db"
 			}
 		},
 		"WriteVariableGeotiff": {

@@ -56,6 +56,10 @@ Run_Env/data/output/*
 Run_Env/data_not_required/*
 Sensitive
 export_blk/
+Run_Env/**/*.db
+Run_Env/**/*.csv
+Run_Env/**/*.xlsx
+
 
 [Tt]hird[Pp]arty
 
