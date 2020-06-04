@@ -372,6 +372,7 @@
 			"library": "internal.flint",
 			"order": 14,
 			"settings": {
+				"confidence_interval": "ninety_nine_percent",
 				"databasename": "forests_output_uncert.db",
 				"Xdatabasename": "./data/output/results/dbs/output.db"
 			}
