@@ -16,7 +16,7 @@
 		"reset_variables": true
 	}
   },
-	"Uncertanty": {
+	"Uncertainty": {
 		"enabled": true,
 		"iterations": 100,
 		"sampling": {},

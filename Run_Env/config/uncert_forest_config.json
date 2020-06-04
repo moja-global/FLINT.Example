@@ -117,7 +117,7 @@
 		"aboveGroundCM",
 		"belowGroundCM"
 	],
-	"Uncertanty": {
+	"Uncertainty": {
 		"enabled": true,
 		"iterations": 100,
 		"sampling":{},
@@ -338,6 +338,11 @@
 			"library": "moja.modules.chapman_richards",
 			"order": 5
 		},
+		"AggregatorUncertainty": {
+			"library": "internal.flint",
+			"order": 6,
+			"settings": {}
+		},
 		"AggregatorUncertaintyLandUnit": {
 			"enabled": true,
 			"library": "internal.flint",
@@ -366,6 +371,18 @@
 			"enabled": true,
 			"library": "internal.flint",
 			"order": 12
+		},
+		"UncertaintyFileWriter": {
+			"library": "internal.flint",
+			"order": 13,
+			"settings": {
+				"flux_file_name": "Example_Rothc_Point_Flux_Uncertainty.csv",
+				"stock_file_name": "Example_Rothc_Point_Stock_Uncertainty.csv",
+				"confidence_interval": "ninety_nine_percent",
+				"output_to_screen": false,
+				"include_raw_data": true,
+				"output_info_header": true
+			}
 		},
 		"UncertaintyLandUnitSQLiteWriter": {
 			"enabled": true,
