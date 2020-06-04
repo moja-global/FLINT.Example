@@ -28,7 +28,7 @@
 			"num_threads": 0,
 			"provider": "FlintTiled",
 			"comment3": "This is an example of how to run the a single block of Dominica",
-			"blocks": [
+			"xblocks": [
 				{
 					"tile_index": 26758,
 					"block_index": 35
@@ -47,7 +47,7 @@
 				}
 			],
 			"comment4": "This is an example of how to run the whole of Dominica",
-			"Xblocks": [
+			"blocks": [
 				{
 					"tile_index": 26758,
 					"block_index": 35
@@ -370,14 +370,34 @@
 		"ErrorScreenWriter": {
 			"enabled": true,
 			"library": "internal.flint",
-			"order": 12
+			"order": 9
+		},
+		"OutputerStream": {
+		  "enabled": true,
+		  "library": "internal.flint",
+		  "order": 10,
+		  "settings": {
+			"output_filename": "Example_Forest_Stock_Uncertainty_Stream.csv",
+			"output_to_screen": false,
+			"output_info_header": true
+		  }
+		},
+		"OutputerStreamFlux": {
+		  "enabled": true,
+		  "library": "internal.flint",
+		  "order": 11,
+		  "settings": {
+			"output_filename": "Example_Forest_Flux_Uncertainty_Stream.csv",
+			"output_to_screen": false,
+			"output_info_header": true
+		  }
 		},
 		"UncertaintyFileWriter": {
 			"library": "internal.flint",
-			"order": 13,
+			"order": 12,
 			"settings": {
-				"flux_file_name": "Example_Rothc_Point_Flux_Uncertainty.csv",
-				"stock_file_name": "Example_Rothc_Point_Stock_Uncertainty.csv",
+				"flux_file_name": "Example_Forest_Flux_Uncertainty.csv",
+				"stock_file_name": "Example_Forest_Stock_Uncertainty.csv",
 				"confidence_interval": "ninety_nine_percent",
 				"output_to_screen": false,
 				"include_raw_data": true,

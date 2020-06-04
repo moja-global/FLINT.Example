@@ -237,7 +237,7 @@
       "library": "internal.flint",
       "order": 11,
       "settings": {
-        "output_filename": "Example_Rothc_Point_Stock.csv",
+        "output_filename": "Example_Uncert_Rothc_Point_Stock_Uncertainty_Stream.csv",
         "output_to_screen": false,
         "output_info_header": true
       }
@@ -247,17 +247,17 @@
       "library": "internal.flint",
       "order": 12,
       "settings": {
-        "output_filename": "Example_Rothc_Point_Flux.csv",
+        "output_filename": "Example_Uncert_Rothc_Point_Flux_Uncertainty_Stream.csv",
         "output_to_screen": false,
         "output_info_header": true
       }
     },
 	"UncertaintyFileWriter": {
 		"library": "internal.flint",
-		"order": 8,
+		"order": 13,
 		"settings": {
-			"flux_file_name": "Example_Rothc_Point_Flux_Uncertainty.csv",
-			"stock_file_name": "Example_Rothc_Point_Stock_Uncertainty.csv",
+			"flux_file_name": "Example_Uncert_Rothc_Point_Flux_Uncertainty.csv",
+			"stock_file_name": "Example_Uncert_Rothc_Point_Stock_Uncertainty.csv",
 			"confidence_interval": "ninety_nine_percent",
 			"output_to_screen": false,
 			"include_raw_data": true,
