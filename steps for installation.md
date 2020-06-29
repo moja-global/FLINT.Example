@@ -70,6 +70,10 @@ iii. Open point_example.json : make changes : on line 2 add
 iv.  Run run the local windows debugger , you will see the output and json file will be made in your run_enviornment folder.
 ```
 
+## For Environment: Docker -
+Upcomming 
+
+
 ## For more detail information                    
 ### References : 
 https://github.com/moja-global/FLINT/blob/master/README.md
