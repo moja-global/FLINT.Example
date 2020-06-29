@@ -5,7 +5,7 @@
 Prerequest: Visual Studio 2019(develop, run and debug)
 
 ### Step's -  
-####1) Moja’s​ ​vcpkg :     
+#### 1) Moja’s​ ​vcpkg :     
 ```powershell
 i.    Open Windows PowerShell, and write the commands
 ii.   cd c\
@@ -17,7 +17,7 @@ vii.  .\bootstrap-vcpkg
 viii. cd “C:\Development\moja-global\vcpkg"​ 
 ix.   vcpkg.exe install boost-test:x64-windows boost-program-options:x64-windows boost-log:x64-windows turtle:x64-windows zipper:x64-windows poco:x64-windows libpq:x64-windows gdal:x64-windows sqlite3:x64-windows boost-ublas:x64-windows 
 ```
-####2)FLINT installation:  
+#### 2)FLINT installation:  
 ```powershell
 i.   Open Windows PowerShell, and write the commands
 ii.  cd "C:\Development\moja-global\"
@@ -27,14 +27,15 @@ v.   mkdir build
 vi.  cd build
 vii. cmake -G "Visual Studio 16 2019" -DCMAKE_INSTALL_PREFIX=C:/Development/Software/moja -DVCPKG_TARGET_TRIPLET=x64-windows -DENABLE_TESTS=OFF -DENABLE_MOJA_MODULES_ZIPPER=OFF -DCMAKE_TOOLCHAIN_FILE=c:\Development\moja-global\vcpkg\scripts\buildsystems\vcpkg.cmake ..
 ```
-#####3)Cmake installation: 
+#### 3)Cmake installation: 
+```powershell
 i.   Download from the link:https://github.com/Kitware/CMake/releases/download/v3.15.2/cmake-3.15.2-win64-x64.msi           
 ii.  Launch the CMake GUI
 iii. Click “Browse Build…” and select the folder you created above and update 'Where is the source code' (i.e. C:\Development\moja-global\FLINT\Source\build)
 iv.  Click “Configure” , click "Generate" and open the solution
 v.   Now Open the solution in visual studio and then run the local windows debugger.
-
-####4)FLINT.example installation:(Provide run environment)
+```
+#### 4)FLINT.example installation:(Provide run environment)
 ```powershell
 i.   Open Windows PowerShell, and write the commands    
 ii.  cd "C:\Development\moja-global\"
@@ -48,7 +49,7 @@ ix.  Click “Browse Build…” and select the folder you created above (i.e. c
 x.   Click “Configure” , click "Generate" and open the solution.
 ```
 
-####5)Running the code:
+#### 5)Running the code:
 ```powershell
 i. Click on debub->All_build properties page->configuration properties->Debugging
 ii. make changes according to your machine path:
@@ -69,8 +70,8 @@ iii. Open point_example.json : make changes : on line 2 add
 iv.  Run run the local windows debugger , you will see the output and json file will be made in your run_enviornment folder.
 ```
 
-##For more detail information                    
-###References : 
+## For more detail information                    
+### References : 
 https://github.com/moja-global/FLINT/blob/master/README.md
 
 https://github.com/moja-global/FLINT.example/blob/master/README.md
