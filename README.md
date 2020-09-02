@@ -29,7 +29,16 @@ Assuming you have followed the moja flint documentation to build using the vcpkg
 mkdir -p Source\build
 cd Source\build
 
+# Run one of the generate commands below
+# Point simulations
+# Generate the project files
 cmake -G "Visual Studio 16 2019" -DCMAKE_INSTALL_PREFIX=C:\Development\Software\moja -DVCPKG_TARGET_TRIPLET=x64-windows -DOPENSSL_ROOT_DIR=c:\Development\moja-global\vcpkg\installed\x64-windows -DENABLE_TESTS=OFF -DCMAKE_TOOLCHAIN_FILE=c:\Development\moja-global\vcpkg\scripts\buildsystems\vcpkg.cmake ..
+
+# Spatial simulations
+# if your planning to run spatial chapman richards example you also need to enable the gdal module
+# Generate the project files
+cmake -G "Visual Studio 16 2019" -DCMAKE_INSTALL_PREFIX=C:\Development\Software\moja -DVCPKG_TARGET_TRIPLET=x64-windows -DOPENSSL_ROOT_DIR=c:\Development\moja-global\vcpkg\installed\x64-windows -DENABLE_TESTS=OFF -DENABLE_MOJA.MODULES.GDAL=ON -DCMAKE_TOOLCHAIN_FILE=c:\Development\moja-global\vcpkg\scripts\buildsystems\vcpkg.cmake ..
+
 ```
 
 ### Running the project
@@ -50,17 +59,24 @@ The settings required in VS2019 are:
 
 ```
 # Command
-C:\Development\moja-global\FLINT\Source\build\bin\Debug\moja.cli.exe
+C:\Development\moja-global\FLINT\Source\build\bin\$(Configuration)\moja.cli.exe
 
 # Command Args
---config config\point_example.json --config config\libs.base.win.json  --logging_config logging.debug_on.conf
+--config config\point_example.json --config config\$(Configuration)\libs.base.win.json  --logging_config logging.debug_on.conf
  
 # Working Directory
 $(SolutionDir)\..\..\Run_Env
 
-# Environment
-PATH=C:\Development\moja-global\vcpkg\installed\x64-windows\debug\bin;C:\Development\moja-global\FLINT\Source\build\bin\Debug;%PATH%
+# Environment Debug
+PATH=C:\Development\moja-global\vcpkg\installed\x64-windows\debug\bin;C:\Development\moja-global\FLINT\Source\build\bin\$(Configuration);%PATH%
 LOCAL_LIBS=$(OutDir)
+MOJA_LIBS=C:\Development\moja-global\FLINT\Source\build\bin\$(Configuration)
+
+# Environment Release
+PATH=C:\Development\moja-global\vcpkg\installed\x64-windows\bin;C:\Development\moja-global\FLINT\Source\build\bin\$(Configuration);%PATH%
+LOCAL_LIBS=$(OutDir)
+MOJA_LIBS=C:\Development\moja-global\FLINT\Source\build\bin\$(Configuration)
+
 ```
 
 With Envs: `PATH` for various libraries built in the Moja stage and `LOCAL_LIBS` so we can modify the explicit path for our example config to load libraries from this vs build (the default is the same location as the EXE).
@@ -85,7 +101,7 @@ There is also a RothC example, to run that project use the same setup as below b
 
 ```powershell
 # Command Args
---config config\point_rothc_example.json --config config\libs.base_rothc.win.json --logging_config logging.debug_on.conf
+--config config/point_rothc_example.json --config config/$(Configuration)/libs.base_rothc.win.json --logging_config logging.debug_on.conf
 ```
 
 #### Chapman Richards example
@@ -95,9 +111,9 @@ Based on the moja repository [Chapman Richards](https://github.com/moja-global/F
 ```powershell
 # Command Args
 # Point
---config config/point_forest_config.json --config config/libs.gdal.chaprich.win.json
+--config config/point_forest_config.json --config config/$(Configuration)/libs.gdal.chaprich.win.json
 # Spatial
---config config/forest_config.json --config config/libs.gdal.chaprich.win.json --config_provider config/forest_provider.json
+--config config/forest_config.json --config config/$(Configuration)/libs.gdal.chaprich.win.json --config_provider config/forest_provider.json
 ```
 
 ## **Environment**: Visual Studio Code
