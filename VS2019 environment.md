@@ -33,7 +33,7 @@ Open the visual studio solution that CMake created at `C:\Development\moja-globa
 
 build the debug configuration **ALL_BUILD** target by right clicking the **ALL_BUILD** node and selecting Build.
 
-![](Documentation\VS2019_buildall.JPG)
+![VS2019_Debugsetup](Documentation/VS2019_buildall.JPG)
 
 #### FLINT.example configuration:
 
@@ -57,13 +57,13 @@ Build the debug configuration **ALL_BUILD** target by right clicking the **ALL_B
 - Environment: ``PATH=C:\Development\moja-global\FLINT\Source\build\bin\Debug;%PATH%``
   ``LOCAL_LIBS=C:\Development\moja-global\FLINT.Example\Source\build\bin\Debug``
 
-![](Documentation\VS2019_rothcproperties.JPG)
+![VS2019_Debugsetup](Documentation/VS2019_rothcproperties.JPG)
 
 #### Running the RothC example:
 
 You should now be able to select Debug->Start Debugging to start a debug run of the RothC example. You should see something like the following:
 
-![](Documentation\VS2019_debugrothc.JPG)
+![VS2019_Debugsetup](Documentation/VS2019_debugrothc.JPG)
 
 ### References : 
 https://github.com/moja-global/FLINT/blob/master/README.md
