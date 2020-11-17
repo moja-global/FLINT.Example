@@ -2,7 +2,7 @@
   "Libraries": {
     "moja.flint.example.base": {
       "library": "moja.flint.example.based.so",
-      "path": "/workspaces/FLINT.example/Source/vscodebuild/lib",
+      "path": "/workspaces/FLINT.Example/Source/vscodebuild/lib",
       "type": "external"
     }
   }

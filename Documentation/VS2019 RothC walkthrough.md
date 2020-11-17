@@ -35,12 +35,12 @@ build the debug configuration **ALL_BUILD** target by right clicking the **ALL_B
 
 ![VS2019_Debugsetup](VS2019_buildall.JPG)
 
-#### FLINT.example configuration:
+#### FLINT.Example configuration:
 
 ```powershell
 cd C:\Development\moja-global
-git clone https://github.com/moja-global/FLINT.example.git
-cd C:\Development\moja-global\FLINT.example\Source
+git clone https://github.com/moja-global/FLINT.Example.git
+cd C:\Development\moja-global\FLINT.Example\Source
 mkdir build
 cd build
 cmake -G "Visual Studio 16 2019" -DCMAKE_INSTALL_PREFIX=C:\Development\Software\moja -DOPENSSL_ROOT_DIR=c:\Development\moja-global\vcpkg\installed\x64-windows -DVCPKG_TARGET_TRIPLET=x64-windows -DENABLE_TESTS=OFF -DCMAKE_TOOLCHAIN_FILE=C:\Development\moja-global\vcpkg\scripts\buildsystems\vcpkg.cmake ..
@@ -68,7 +68,7 @@ You should now be able to select Debug->Start Debugging to start a debug run of 
 ### References : 
 https://github.com/moja-global/FLINT/blob/master/README.md
 
-https://github.com/moja-global/FLINT.example/blob/master/README.md
+https://github.com/moja-global/FLINT.Example/blob/master/README.md
 
 
 

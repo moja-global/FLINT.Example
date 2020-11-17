@@ -1,4 +1,4 @@
-# FLINT.example
+# FLINT.Example
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
 This project gives an example of how to build and run libraries using the FLINT framework.
@@ -45,7 +45,7 @@ cmake -G "Visual Studio 16 2019" -DCMAKE_INSTALL_PREFIX=C:\Development\Software\
 
 Running in the IDE and debugging is a little tricky. This could more than likely be resolved with better cmake  setups. But for now there is some setup that can make running and debugging work.
 
-The issue is we want to run with the `moja.cli.exe` from the moja.FLINT project, but debug in our current IDE (FLINT.example).
+The issue is we want to run with the `moja.cli.exe` from the moja.FLINT project, but debug in our current IDE (FLINT.Example).
 
 The solution is to use properties to setup a Debug run in the IDE, making the command run `moja.cli.exe`.
 
@@ -144,7 +144,7 @@ NOTE: The libraries require a slightly different paths to work inside the dev-co
 
 ```bash
 # start in the correct folder
-cd /workspaces/FLINT.example/Run_Env
+cd /workspaces/FLINT.Example/Run_Env
 
 # sample
 moja.cli --config config/point_example.json --config config/libs.base.vscode.json  --logging_config logging.debug_on.conf
@@ -238,10 +238,10 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="http://moja.global"><img src="https://avatars1.githubusercontent.com/u/19564969?v=4" width="100px;" alt=""/><br /><sub><b>moja global</b></sub></a><br /><a href="#projectManagement-moja-global" title="Project Management">📆</a></td>
-    <td align="center"><a href="https://github.com/leitchy"><img src="https://avatars0.githubusercontent.com/u/3417817?v=4" width="100px;" alt=""/><br /><sub><b>James Leitch</b></sub></a><br /><a href="https://github.com/moja-global/FLINT.example/commits?author=leitchy" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/malfrancis"><img src="https://avatars0.githubusercontent.com/u/5935221?v=4" width="100px;" alt=""/><br /><sub><b>Mal</b></sub></a><br /><a href="https://github.com/moja-global/FLINT.example/commits?author=malfrancis" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/sjbcastro"><img src="https://avatars3.githubusercontent.com/u/15131402?v=4" width="100px;" alt=""/><br /><sub><b>sjbcastro</b></sub></a><br /><a href="https://github.com/moja-global/FLINT.example/commits?author=sjbcastro" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/parth-gr"><img src="https://avatars0.githubusercontent.com/u/50455445?v=4" width="100px;" alt=""/><br /><sub><b>Parth Arora</b></sub></a><br /><a href="https://github.com/moja-global/FLINT.example/commits?author=parth-gr" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/leitchy"><img src="https://avatars0.githubusercontent.com/u/3417817?v=4" width="100px;" alt=""/><br /><sub><b>James Leitch</b></sub></a><br /><a href="https://github.com/moja-global/FLINT.Example/commits?author=leitchy" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/malfrancis"><img src="https://avatars0.githubusercontent.com/u/5935221?v=4" width="100px;" alt=""/><br /><sub><b>Mal</b></sub></a><br /><a href="https://github.com/moja-global/FLINT.Example/commits?author=malfrancis" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/sjbcastro"><img src="https://avatars3.githubusercontent.com/u/15131402?v=4" width="100px;" alt=""/><br /><sub><b>sjbcastro</b></sub></a><br /><a href="https://github.com/moja-global/FLINT.Example/commits?author=sjbcastro" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/parth-gr"><img src="https://avatars0.githubusercontent.com/u/50455445?v=4" width="100px;" alt=""/><br /><sub><b>Parth Arora</b></sub></a><br /><a href="https://github.com/moja-global/FLINT.Example/commits?author=parth-gr" title="Documentation">📖</a></td>
   </tr>
 </table>
 
@@ -256,7 +256,7 @@ This project follows the [all-contributors](https://github.com/all-contributors/
 
 The following people are Maintainers Reviewers Ambassadors or Coaches  
 
-<table><tr> <td align="center"><a href="https://github.com/leitchy"><img src="https://avatars0.githubusercontent.com/u/3417817?v=4" width="100px;" alt=""/><br /><sub><b>James Leitch</b></sub></a><br /><a href="https://github.com/moja-global/FLINT.example/commits?author=leitchy" title="Code">💻</a></td><td align="center"><a href="https://github.com/malfrancis"><img src="https://avatars0.githubusercontent.com/u/5935221?v=4" width="100px;" alt=""/><br /><sub><b>Mal</b></sub></a><br /><a href="https://github.com/moja-global/FLINT.example/commits?author=malfrancis" title="Code">💻</a></td></tr></table>  
+<table><tr> <td align="center"><a href="https://github.com/leitchy"><img src="https://avatars0.githubusercontent.com/u/3417817?v=4" width="100px;" alt=""/><br /><sub><b>James Leitch</b></sub></a><br /><a href="https://github.com/moja-global/FLINT.Example/commits?author=leitchy" title="Code">💻</a></td><td align="center"><a href="https://github.com/malfrancis"><img src="https://avatars0.githubusercontent.com/u/5935221?v=4" width="100px;" alt=""/><br /><sub><b>Mal</b></sub></a><br /><a href="https://github.com/moja-global/FLINT.Example/commits?author=malfrancis" title="Code">💻</a></td></tr></table>  
 
 **Maintainers** review and accept proposed changes  
 **Reviewers** check proposed changes before they go to the Maintainers  
