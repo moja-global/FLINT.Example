@@ -128,7 +128,9 @@ With these extensions installed, on startup, *VS Code* should ask if you want to
 
 The *VS Code* project has some `launch.json` settings in place (in the `.vscode` folder), these can run both the base and rothc samples. It is possible to debug into the moja.flint libraries by loading on of the *.cpp/*.h files and setting a breakpoint - OR stepping into a method using the debugger
 
-To build the project the cmake and C++ extensions will be required. These have been specified in the `devcontainer.json` file. To build the library use Cmake Configure, Buold and Install.
+**NOTE**: To build the project the cmake and C++ extensions will be required. These have been specified in the `devcontainer.json` file. 
+
+**BUILD**: When the project opens the folder in the dev container (and the docker build is complete), build the library by using the CMake Configure, Build and Install commands (in that order). These commands can be executed by using `F1` and type `CMake`, the list of available cmake commands should appear. When this is done you should be ready to run/debug one of the samples. 
 
 ```json
 	"extensions": [
@@ -138,9 +140,7 @@ To build the project the cmake and C++ extensions will be required. These have b
 		"ms-vscode.cmake-tools"
 	]
 ```
-Once the project opens the folder in the dev container, use the cmake commands to configure and build the project. Once this is done you should be ready to run/debug one of the samples.
-
-NOTE: The libraries require a slightly different paths to work inside the dev-container, so there is a new version of the library configs for *VS Code*. These commands will work from the terminal in the running container after cmake has been successful.
+The libraries require a slightly different paths to work inside the dev-container, so there is a new version of the library configs for *VS Code*. These commands will work from the terminal in the running container after cmake has been successful.
 
 ```bash
 # start in the correct folder
