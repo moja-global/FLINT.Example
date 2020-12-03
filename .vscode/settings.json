@@ -7,5 +7,7 @@
         "-DENABLE_MOJA_FLINT_EXAMPLE_ROTHC:BOOL=ON",
         "-DBoost_USE_STATIC_LIBS=OFF",
         "-DBUILD_SHARED_LIBS=ON"
-    ]
+    ],
+    "cmake.sourceDirectory": "${workspaceFolder}/Source",
+    "cmake.buildDirectory": "${workspaceFolder}/Source/vscodebuild"
 }

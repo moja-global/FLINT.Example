@@ -1,12 +1,12 @@
 {
   "Libraries": {
     "moja.modules.gdal": {
-      "library": "moja.modules.gdald.dll",
-      "path": "%LOCAL_LIBS%",
+      "library": "moja.modules.gdal.dll",
+      "path": "%MOJA_LIBS%",
       "type": "external"
     },
     "moja.modules.chapman_richards": {
-      "library": "moja.modules.chapman_richardsd.dll",
+      "library": "moja.modules.chapman_richards.dll",
       "path": "%LOCAL_LIBS%",
       "type": "external"
     }

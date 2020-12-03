@@ -1,0 +1,9 @@
+{
+  "Libraries": {
+    "moja.flint.example.base": {
+      "library": "moja.flint.example.base.dll",
+      "path": "%LOCAL_LIBS%",
+      "type": "external"
+    }
+  }
+}

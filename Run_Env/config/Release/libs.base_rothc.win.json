@@ -1,0 +1,14 @@
+{
+  "Libraries": {
+    "moja.flint.example.base": {
+      "library": "moja.flint.example.base.dll",
+      "path": "%LOCAL_LIBS%",
+      "type": "external"
+    },
+    "moja.flint.example.rothc": {
+      "library": "moja.flint.example.rothc.dll",
+      "path": "%LOCAL_LIBS%",
+      "type": "external"
+    }
+  }
+}

@@ -15,10 +15,6 @@
 [Ee]nv/
 
 # Build results
-[Dd]ebug/
-[Dd]ebugPublic/
-[Rr]elease/
-[Rr]el[Ww]ith[Dd]eb[Ii]nfo
 x64/
 Source/build/
 Source/build_docker/

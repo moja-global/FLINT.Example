@@ -7,9 +7,9 @@
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
-            "cStandard": "gnu11",
-            "cppStandard": "gnu++14",
-            "intelliSenseMode": "clang-x64",
+            "cStandard": "gnu17",
+            "cppStandard": "gnu++17",
+            "intelliSenseMode": "gcc-x64",
             "compileCommands": "${workspaceFolder}/Source/vscodebuild/compile_commands.json",
             "configurationProvider": "vector-of-bool.cmake-tools"
         }

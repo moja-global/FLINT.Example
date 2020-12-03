@@ -2,12 +2,12 @@
   "Libraries": {
     "moja.flint.example.base": {
       "library": "moja.flint.example.based.so",
-      "path": "/workspaces/FLINT.example/Source/vscodebuild/lib",
+      "path": "/workspaces/FLINT.Example/Source/vscodebuild/lib",
       "type": "external"
     },
     "moja.flint.example.rothc": {
       "library": "moja.flint.example.rothcd.so",
-      "path": "/workspaces/FLINT.example/Source/vscodebuild/lib",
+      "path": "/workspaces/FLINT.Example/Source/vscodebuild/lib",
       "type": "external"
     }
   }

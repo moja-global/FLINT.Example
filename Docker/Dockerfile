@@ -1,7 +1,7 @@
 # ==================================================================================================================
 # Multiple docker - Part 1
 #
-# Docker to bionic based image for FLINT.example project
+# Docker to bionic based image for FLINT.Example project
 #
 # Building this Docker: 
 #    docker build --build-arg NUM_CPU=8 -t moja/flint.example:bionic .
@@ -18,9 +18,9 @@ ENV ROOTDIR /usr/local
 
 WORKDIR $ROOTDIR/src
 
-# FLINT.example
-RUN git clone --depth 1 https://github.com/moja-global/FLINT.example.git FLINT.example \
-    && mkdir -p FLINT.example/Source/build && cd FLINT.example/Source/build \
+# FLINT.Example
+RUN git clone --depth 1 https://github.com/moja-global/FLINT.Example.git FLINT.Example \
+    && mkdir -p FLINT.Example/Source/build && cd FLINT.Example/Source/build \
     && cmake -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX=$ROOTDIR \
              -DENABLE_TESTS:BOOL=OFF \
              -DENABLE_MOJA_FLINT_EXAMPLE_BASE:BOOL=ON \

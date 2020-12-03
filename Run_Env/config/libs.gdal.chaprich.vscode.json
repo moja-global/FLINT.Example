@@ -7,7 +7,7 @@
     },
     "moja.modules.chapman_richards": {
       "library": "moja.modules.chapman_richardsd.so",
-      "path": "/workspaces/FLINT.example/Source/vscodebuild/lib",
+      "path": "/workspaces/FLINT.Example/Source/vscodebuild/lib",
       "type": "external"
     }
   }
