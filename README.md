@@ -16,195 +16,13 @@ and currently four different sample runs:
 * Chapman richards Point sample
 * Chapman richards Spatial sample
 
-## **Environment**: Visual Studio 16 2019 Win64
+## Installation Docs
 
-### Building the project
+Please checkout the [moja global developer docs](https://docs.moja.global/en/latest/DevelopmentSetup/FLINT.example_installation.html) for complete instructions on how to setup the repository. You may also refer this documentation for setting up FLINT, GCBM or just get an idea of the moja global workflow! You may also suggest an improvement in the current docs by creating an issue [here](hhttps://github.com/moja-global/GSoD.moja_global_docs).
 
-Assuming you have followed the moja flint documentation to build using the vcpkg method, the commands below should build your example project solution.
+## Installation Videos
 
-**NOTE**: Paths used in commands may be different on your system.
-
-```powershell
-# Create a build folder under the Source folder
-mkdir -p Source\build
-cd Source\build
-
-# Run one of the generate commands below
-# Point simulations
-# Generate the project files
-cmake -G "Visual Studio 16 2019" -DCMAKE_INSTALL_PREFIX=C:\Development\Software\moja -DVCPKG_TARGET_TRIPLET=x64-windows -DOPENSSL_ROOT_DIR=c:\Development\moja-global\vcpkg\installed\x64-windows -DENABLE_TESTS=OFF -DCMAKE_TOOLCHAIN_FILE=c:\Development\moja-global\vcpkg\scripts\buildsystems\vcpkg.cmake ..
-
-# Spatial simulations
-# if your planning to run spatial chapman richards example you also need to enable the gdal module
-# Generate the project files
-cmake -G "Visual Studio 16 2019" -DCMAKE_INSTALL_PREFIX=C:\Development\Software\moja -DVCPKG_TARGET_TRIPLET=x64-windows -DOPENSSL_ROOT_DIR=c:\Development\moja-global\vcpkg\installed\x64-windows -DENABLE_TESTS=OFF -DENABLE_MOJA.MODULES.GDAL=ON -DCMAKE_TOOLCHAIN_FILE=c:\Development\moja-global\vcpkg\scripts\buildsystems\vcpkg.cmake ..
-
-```
-
-### Running the project
-
-Running in the IDE and debugging is a little tricky. This could more than likely be resolved with better cmake  setups. But for now there is some setup that can make running and debugging work.
-
-The issue is we want to run with the `moja.cli.exe` from the moja.FLINT project, but debug in our current IDE (FLINT.Example).
-
-The solution is to use properties to setup a Debug run in the IDE, making the command run `moja.cli.exe`.
-
-**NOTE** : All paths used below with `C:\Development\moja-global` will need to be modified to match your system build location of the moja project.
-
-![VS2019_Debugsetup2](Documentation/VS2019_Debugsetup2.png)
-
-#### Test Module Example
-
-The settings required in VS2019 are:
-
-```
-# Command
-C:\Development\moja-global\FLINT\Source\build\bin\$(Configuration)\moja.cli.exe
-
-# Command Args
---config config\point_example.json --config config\$(Configuration)\libs.base.win.json  --logging_config logging.debug_on.conf
- 
-# Working Directory
-$(SolutionDir)\..\..\Run_Env
-
-# Environment Debug
-PATH=C:\Development\moja-global\vcpkg\installed\x64-windows\debug\bin;C:\Development\moja-global\FLINT\Source\build\bin\$(Configuration);%PATH%
-LOCAL_LIBS=$(OutDir)
-MOJA_LIBS=C:\Development\moja-global\FLINT\Source\build\bin\$(Configuration)
-
-# Environment Release
-PATH=C:\Development\moja-global\vcpkg\installed\x64-windows\bin;C:\Development\moja-global\FLINT\Source\build\bin\$(Configuration);%PATH%
-LOCAL_LIBS=$(OutDir)
-MOJA_LIBS=C:\Development\moja-global\FLINT\Source\build\bin\$(Configuration)
-
-```
-
-With Envs: `PATH` for various libraries built in the Moja stage and `LOCAL_LIBS` so we can modify the explicit path for our example config to load libraries from this vs build (the default is the same location as the EXE).
-
-To match this, the example point config uses an environment variable in the library path:
-
-```json
-{
-  "Libraries": {
-    "moja.flint.example.base": {
-      "library": "moja.flint.example.based.dll",
-      "path": "%LOCAL_LIBS%",
-      "type": "external"
-    }
-  }
-}
-```
-
-#### RothC example
-
-There is also a RothC example, to run that project use the same setup as below but change the command arguments:
-
-```powershell
-# Command Args
---config config/point_rothc_example.json --config config/$(Configuration)/libs.base_rothc.win.json --logging_config logging.debug_on.conf
-```
-
-#### Chapman Richards example
-
-Based on the moja repository [Chapman Richards](https://github.com/moja-global/FLINT.chapman_richards), thsi sample can run both a point and spatial version (over Dominica).
-
-```powershell
-# Command Args
-# Point
---config config/point_forest_config.json --config config/$(Configuration)/libs.gdal.chaprich.win.json
-# Spatial
---config config/forest_config.json --config config/$(Configuration)/libs.gdal.chaprich.win.json --config_provider config/forest_provider.json
-```
-
-## **Environment**: Visual Studio Code
-
-It is also possible to develop, run and debug in Visual Studio Code using Remote Containers. You will need to install [*Visual Studio Code*](https://code.visualstudio.com/) and add the extension:
-
-* [*Remote - Container*](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
-
-Others extensions may be required, please follow instructions during VS Code startup. Extensions required during development will be installed in the container (listed below).
-
-With these extensions installed, on startup, *VS Code* should ask if you want to open the project in a Container - OR you can press `F1` and select `Remote-Containers: Open folder in Container...`
-
-The *VS Code* project has some `launch.json` settings in place (in the `.vscode` folder), these can run both the base and rothc samples. It is possible to debug into the moja.flint libraries by loading on of the *.cpp/*.h files and setting a breakpoint - OR stepping into a method using the debugger
-
-**NOTE**: To build the project the cmake and C++ extensions will be required. These have been specified in the `devcontainer.json` file. 
-
-**BUILD**: When the project opens the folder in the dev container (and the docker build is complete), build the library by using the CMake Configure, Build and Install commands (in that order). These commands can be executed by using `F1` and type `CMake`, the list of available cmake commands should appear. When this is done you should be ready to run/debug one of the samples. 
-
-```json
-	"extensions": [
-		"ms-vscode.cpptools",
-		"austin.code-gnu-global",
-		"twxs.cmake",
-		"ms-vscode.cmake-tools"
-	]
-```
-The libraries require a slightly different paths to work inside the dev-container, so there is a new version of the library configs for *VS Code*. These commands will work from the terminal in the running container after cmake has been successful.
-
-```bash
-# start in the correct folder
-cd /workspaces/FLINT.Example/Run_Env
-
-# sample
-moja.cli --config config/point_example.json --config config/libs.base.vscode.json  --logging_config logging.debug_on.conf
-
-# rothc
-moja.cli --config config/point_rothc_example.json --config config/libs.base_rothc.vscode.json  --logging_config logging.debug_on.conf
-
-# Chapman Richards - forest point
-moja.cli --config config/point_forest_config.json --config config/libs.gdal.chaprich.vscode.json 
-
-# Chapman Richards - forest spatial 
-moja.cli --config config/forest_config.json --config config/libs.gdal.chaprich.vscode.json --config_provider config/forest_provider.json
-```
-
-## **Environment**: Docker
-
-Docker file can be found in the [Dockerfile](./Docker/Dockerfile)
-
-Builds fom the image `mojaglobal/flint:bionic` which can be found in [docker hub](https://hub.docker.com/repository/docker/mojaglobal/flint/general)
-
-##### Building the docker:
-
-```bash
-# from repository root folder
-cd Docker
-docker build --build-arg NUM_CPU=8 -t moja/flint.example:bionic .
-```
-
-##### Commands to run using docker - stock result written to screen and results files create (./Run_Env/*.csv):
-
-```bash
-# from repository root folder
-docker run --rm -v $(pwd)/Run_Env:/usr/local/run_env -ti moja/flint.example:bionic bash -c "cd /usr/local/run_env/; moja.cli --config config/point_example.json --config config/libs.base.simple.json --logging_config logging.debug_on.conf"
-docker run --rm -v $(pwd)/Run_Env:/usr/local/run_env -ti moja/flint.example:bionic bash -c "cd /usr/local/run_env/; moja.cli --config config/point_rothc_example.json --config config/libs.base_rothc.simple.json --logging_config logging.debug_on.conf"
-```
-
-##### Commands to run moja from within the docker - stock result written to screen and results files create (./Run_Env/*.csv):
-
-```bash
-docker run --rm -v $(pwd)/Run_Env:/usr/local/run_env -ti moja/flint.example:bionic bash
-```
-
-##### Then inside the running container:
-
-```bash
-cd /usr/local/run_env/
-moja.cli --config config/point_example.json --config config/libs.base.simple.json --logging_config logging.debug_on.conf
-moja.cli --config config/point_rothc_example.json --config config/libs.base_rothc.simple.json --logging_config logging.debug_on.conf
-```
-
-## Outputs
-
-The runs above will create output files. While Stock values are output to the screen, there will also be some simplace CVS files created with both Stock and Flux values for the simulation.
-
-```bash
-Example_Point_Flux.csv
-Example_Point_Stock.csv
-Example_Rothc_Point_Flux.csv
-Example_Rothc_Point_Stock.csv
-```
+We also have a set of installation videos to help you out with the installation. If you prefer video installation procedure as opposed to textual documentation, this will be a perfect starter for you!
 
 ## TODO
 
@@ -215,17 +33,16 @@ Example_Rothc_Point_Stock.csv
 
 ## How to Get Involved?  
 
-moja global welcomes a wide range of contributions as explained in [Contributing document](https://github.com/moja-global/About-moja-global/blob/master/CONTRIBUTING.md) and in the [About moja-global Wiki](https://github.com/moja-global/.github/wiki).  
-
+moja global welcomes a wide range of contributions as explained in [Contributing document](https://docs.moja.global/en/latest/contributing/index.html).
 
 ## FAQ and Other Questions  
 
-* You can find FAQs on the [Wiki](https://github.com/moja.global/.github/wiki).  
+* You can find FAQs on the [FAQs section of our docs](https://docs.moja.global/en/latest/faq.html).  
 * If you have a question about the code, submit [user feedback](https://github.com/moja-global/About-moja-global/blob/master/Contributing/How-to-Provide-User-Feedback.md) in the relevant repository  
-* If you have a general question about a project or repository or moja global, [join moja global](https://github.com/moja-global/About-moja-global/blob/master/Contributing/How-to-Join-moja-global.md) and 
-  * [submit a discussion](https://help.github.com/en/articles/about-team-discussions) to the project, repository or moja global [team](https://github.com/orgs/moja-global/teams)
-  * [submit a message](https://get.slack.help/hc/en-us/categories/200111606#send-messages) to the relevant channel on [moja global's Slack workspace](mojaglobal.slack.com). 
-* If you have other questions, please write to info@moja.global   
+* If you have a general question about a project or repository or moja global, [join moja global](https://docs.moja.global/en/latest/contact.html) and
+    * [submit a discussion](https://help.github.com/en/articles/about-team-discussions) to the project, repository or moja global [team](https://github.com/orgs/moja-global/teams)
+    * [submit a message](https://get.slack.help/hc/en-us/categories/200111606#send-messages) to the relevant channel on [moja global's Slack workspace](mojaglobal.slack.com).
+* If you have other questions, please write to info@moja.global  
   
 
 ## Contributors
