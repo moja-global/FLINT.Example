@@ -24,6 +24,7 @@ class CHAPMAN_RICHARDS_API ForestGrowthModule : public moja::flint::ModuleBase {
 
    void onLocalDomainInit() override;
    void onTimingInit() override;
+   flint::IPool* get_cohort_pool(const std::string& parent, const std::string& forest_type);
    void onTimingStep() override;
 
   private:
@@ -37,8 +38,6 @@ class CHAPMAN_RICHARDS_API ForestGrowthModule : public moja::flint::ModuleBase {
 
    const flint::IPool* atmosphere_ = nullptr;
    const flint::IPool* initial_values_ = nullptr;
-   const flint::IPool* above_ground_cm_ = nullptr;
-   const flint::IPool* below_ground_cm_ = nullptr;
 
    flint::IVariable* forest_exists_ = nullptr;
    flint::IVariable* forest_age_ = nullptr;

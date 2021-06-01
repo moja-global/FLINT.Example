@@ -6,9 +6,7 @@
 
 #include <moja/dynamic.h>
 
-namespace moja {
-namespace modules {
-namespace chapman_richards {
+namespace moja::modules::chapman_richards {
 
 class CHAPMAN_RICHARDS_API ForestType : public flint::IFlintData {
   public:
@@ -27,6 +25,7 @@ class CHAPMAN_RICHARDS_API ForestType : public flint::IFlintData {
    std::string name;
    std::string type;
    double carbon_frac_ag, carbon_frac_bg;
+   double turnover_frac_ag, turnover_frac_bg;
    double max, k, m;
    double root_to_shoot;
 };
@@ -83,5 +82,3 @@ void ForestTypeList::emplace_back(Args&&... args) {
    list_.emplace_back(std::forward<Args>(args)...);
 }
 }  // namespace chapman_richards
-}  // namespace modules
-}  // namespace moja

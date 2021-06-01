@@ -28,12 +28,14 @@ class CHAPMAN_RICHARDS_API DisturbanceEventModule : public flint::ModuleBase, Di
 
   private:
    void simulate(const ForestPlantEvent& plant) override;
+   flint::IPool* get_cohort_pool(const std::string& parent, const std::string& forest_type);
    void simulate(const ForestClearEvent& thin) override;
 
    const flint::IPool* atmosphere_;
 
-   const flint::IPool* agcm_ = nullptr;
-   const flint::IPool* bgcm_ = nullptr;
+   flint::IPool* above_ground_cm_ = nullptr;
+   flint::IPool* below_ground_cm_ = nullptr;
+   flint::IPool* dead_organic_cm_ = nullptr;
 
    flint::IVariable* forest_exists_;
    flint::IVariable* forest_age_;

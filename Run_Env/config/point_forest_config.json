@@ -17,7 +17,8 @@
 		"initialValues",
 		"atmosphereCM",
 		"aboveGroundCM",
-		"belowGroundCM"
+		"belowGroundCM",
+		"deadOrganicCM"
 	],
 	"Variables": [
 		{
@@ -42,14 +43,29 @@
 							{
 								"id": 1,
 								"type": "chapman_richards.ForestType",
-								"name": "Dryland Forests",
-								"carbon_frac_ag": 0.49,
-								"carbon_frac_bg": 0.48,
+								"name": "Pinus radiata",
+								"carbon_frac_ag": 0.517,
+								"carbon_frac_bg": 0.494,
+								"turnover_frac_ag": 0.0792,
+								"turnover_frac_bg": 0.0351,
 								"max": 51.64,
 								"k": 0.037,
 								"m": 0.5,
 								"root_to_shoot": 0.235
-							}
+							},
+							{
+								"id": 2,
+								"type": "chapman_richards.ForestType",
+								"name": "Eucalyptus globulous",
+								"carbon_frac_ag": 0.496,
+								"carbon_frac_bg": 0.4765,
+								"turnover_frac_ag": 0.0775,
+								"turnover_frac_bg": 0.0351,
+								"max": 51.64,
+								"k": 0.037,
+								"m": 0.5,
+								"root_to_shoot": 0.235
+							}							
 						]
 					}
 				}
@@ -68,7 +84,7 @@
 								},
 								"id": 1,
 								"type": "chapman_richards.ForestPlantEvent",
-								"name": "Plant Dryland Forests",
+								"name": "Plant P. radiata",
 								"forest_type_id": 1,
 								"age": 0.0
 							},
@@ -76,9 +92,19 @@
 								"date": {
 									"$date": "2050/01/01"
 								},
-								"id": 1,
+								"id": 2,
 								"type": "chapman_richards.ForestClearEvent",
-								"name": "Clear Dryland Forests"
+								"name": "Clear P. radiata"
+							},
+							{
+								"date": {
+									"$date": "2051/01/01"
+								},
+								"id": 3,
+								"type": "chapman_richards.ForestPlantEvent",
+								"name": "Plant E. globulous",
+								"forest_type_id": 2,
+								"age": 0.0
 							}
 						]
 					}

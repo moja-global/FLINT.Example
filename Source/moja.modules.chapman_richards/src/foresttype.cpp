@@ -3,9 +3,7 @@
 #include <moja/exception.h>
 #include <moja/logging.h>
 
-namespace moja {
-namespace modules {
-namespace chapman_richards {
+namespace moja::modules::chapman_richards {
 
 void ForestType::configure(DynamicObject config, const flint::ILandUnitController& landUnitController,
                            datarepository::DataRepository& dataRepository) {
@@ -16,6 +14,8 @@ void ForestType::configure(DynamicObject config, const flint::ILandUnitControlle
 
    carbon_frac_ag = config["carbon_frac_ag"];
    carbon_frac_bg = config["carbon_frac_bg"];
+   turnover_frac_ag = config["turnover_frac_ag"];
+   turnover_frac_bg = config["turnover_frac_bg"];
 
    max = config["max"];
    k = config["k"];
@@ -33,6 +33,9 @@ DynamicObject ForestType::exportObject() const {
 
    object["carbon_frac_ag"] = carbon_frac_ag;
    object["carbon_frac_bg"] = carbon_frac_bg;
+
+   object["turnover_frac_ag"] = turnover_frac_ag;
+   object["turnover_frac_bg"] = turnover_frac_bg;
 
    object["max"] = max;
    object["k"] = k;
@@ -55,6 +58,10 @@ void ForestType::setProperty(const DynamicObject& query, const std::string& key,
       carbon_frac_ag = value;
    } else if (key == "carbon_frac_bg") {
       carbon_frac_bg = value;
+   } else if (key == "turnover_frac_ag") {
+      turnover_frac_ag = value;
+   } else if (key == "turnover_frac_bg") {
+      turnover_frac_bg = value;
    }
 }
 
@@ -116,5 +123,3 @@ ForestTypeList::value_type ForestTypeList::find(int id) const {
 }
 
 }  // namespace chapman_richards
-}  // namespace modules
-}  // namespace moja
