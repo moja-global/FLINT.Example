@@ -6,12 +6,11 @@ string(TOUPPER "${NEW_PACKAGE}" LIBNAME_EXPORT)
 find_package(Poco REQUIRED Foundation JSON Data DataSQLite)
 find_package(Boost COMPONENTS log log_setup REQUIRED)
 find_package(fmt CONFIG REQUIRED)
-find_package(PostgreSQL REQUIRED)
 find_package(moja REQUIRED COMPONENTS moja.flint)
 
-# HEADERS AND SOURCE
-
 configure_file(../templates/exports.h ${CMAKE_CURRENT_SOURCE_DIR}/include/moja/flint/example/${PACKAGE}/_modules.${PACKAGE}_exports.h)
+
+# HEADERS AND SOURCE
 
 set(PROJECT_HEADERS
     include/moja/flint/example/${PACKAGE}/_modules.${PACKAGE}_exports.h
@@ -23,60 +22,25 @@ set(PROJECT_SOURCES
 )
 
 set(PROJECT_MODULE_HEADERS
-	#include/moja/flint/example/${PACKAGE}/xxx.h
-	#include/moja/flint/example/${PACKAGE}/errorscreenwriter.h
 	include/moja/flint/example/${PACKAGE}/plantresiduemodule.h
 	include/moja/flint/example/${PACKAGE}/rothcmodule.h
 	include/moja/flint/example/${PACKAGE}/soilcovermodule.h
 )
  
 set(PROJECT_MODULE_SOURCES
-	#src/xxx.cpp
-	#src/errorscreenwriter.cpp
 	src/plantresiduemodule.cpp
 	src/rothcmodule.cpp
 	src/soilcovermodule.cpp
 )
  
-set(PROJECT_TRANSFORM_HEADERS
-	#include/moja/flint/example/${PACKAGE}/xxx.h
-)
-
-set(PROJECT_TRANSFORM_SOURCES
-	#src/xxx.cpp
-)
- 
-set(PROJECT_FLINTDATA_HEADERS
-	#include/moja/flint/example/${PACKAGE}/xxx.h
-)
-
-set(PROJECT_FLINTDATA_SOURCES
-	#src/xxx.cpp
-)
- 
-set(PROJECT_PROVIDER_HEADERS
-)
-
-set(PROJECT_PROVIDER_SOURCES
-)
-
 source_group("header files\\other"					FILES ${PROJECT_HEADERS})
 source_group("source files\\other"					FILES ${PROJECT_SOURCES})
 source_group("header files\\modules"				FILES ${PROJECT_MODULE_HEADERS})
 source_group("source files\\modules"				FILES ${PROJECT_MODULE_SOURCES})
-source_group("header files\\transforms"				FILES ${PROJECT_TRANSFORM_HEADERS})
-source_group("source files\\transforms"				FILES ${PROJECT_TRANSFORM_SOURCES})
-source_group("header files\\flintdata"				FILES ${PROJECT_FLINTDATA_HEADERS})
-source_group("source files\\flintdata"				FILES ${PROJECT_FLINTDATA_SOURCES})
-source_group("header files\\providers"				FILES ${PROJECT_PROVIDER_HEADERS})
-source_group("source files\\providers"				FILES ${PROJECT_PROVIDER_SOURCES})
 
 set(SRCS 
 	${PROJECT_SOURCES} ${PROJECT_HEADERS}
 	${PROJECT_MODULE_SOURCES} ${PROJECT_MODULE_HEADERS}
-	${PROJECT_TRANSFORM_SOURCES} ${PROJECT_TRANSFORM_HEADERS}
-	${PROJECT_FLINTDATA_SOURCES} ${PROJECT_FLINTDATA_HEADERS}
-    ${PROJECT_PROVIDER_HEADERS} ${PROJECT_PROVIDER_SOURCES}
 )
 
 add_library(${LIBNAME} ${LIB_MODE} ${SRCS})
@@ -96,10 +60,14 @@ set_target_properties(${LIBNAME}
 	SOVERSION ${MOJA_FLINT_EXAMPLE_VERSION_MAJOR}
     DEFINE_SYMBOL ${LIBNAME_EXPORT}_EXPORTS)
 
+target_compile_features(${LIBNAME} PUBLIC cxx_std_17)
+set_target_properties(${LIBNAME} PROPERTIES CXX_EXTENSIONS OFF)	
+
 target_link_libraries(${LIBNAME} 
 	PUBLIC
 		fmt::fmt-header-only
-		moja::moja.flint PostgreSQL::PostgreSQL Poco::Foundation Poco::JSON Poco::Data Poco::DataSQLite
+		moja::moja.flint 
+		Poco::Foundation Poco::JSON Poco::Data Poco::DataSQLite
 	PRIVATE
 	)
 if(WIN32)

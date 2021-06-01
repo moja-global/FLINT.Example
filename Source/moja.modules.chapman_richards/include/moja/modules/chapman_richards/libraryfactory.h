@@ -4,17 +4,11 @@
 
 #include <moja/flint/librarymanager.h>
 
-namespace moja {
-namespace modules {
-namespace chapman_richards {
+namespace moja::modules::chapman_richards {
 
-extern "C" MOJA_LIB_API int getModuleRegistrations(moja::flint::ModuleRegistration* outModuleRegistrations);
-extern "C" MOJA_LIB_API int getTransformRegistrations(moja::flint::TransformRegistration* outTransformRegistrations);
-extern "C" MOJA_LIB_API int getFlintDataRegistrations(moja::flint::FlintDataRegistration* outFlintDataRegistrations);
-extern "C" MOJA_LIB_API int getFlintDataFactoryRegistrations(
-    moja::flint::FlintDataFactoryRegistration* outFlintDataFactoryRegistrations);
+extern "C" MOJA_LIB_API int getModuleRegistrations(flint::ModuleRegistration* registrations);
+extern "C" MOJA_LIB_API int getTransformRegistrations(flint::TransformRegistration* registrations);
+extern "C" MOJA_LIB_API int getFlintDataRegistrations(flint::FlintDataRegistration* registrations);
+extern "C" MOJA_LIB_API int getFlintDataFactoryRegistrations(flint::FlintDataFactoryRegistration* registrations);
 
-}  // namespace chapman_richards
-}  // namespace modules
-}  // namespace moja
-
+}  // namespace moja::modules::chapman_richards

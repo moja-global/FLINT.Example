@@ -2,9 +2,7 @@
 
 #include <moja/hash.h>
 
-namespace moja {
-namespace modules {
-namespace chapman_richards {
+namespace moja::modules::chapman_richards {
 
 // -- DateRecord
 DateRecord::DateRecord(int step, int substep, int year, int month, int day, double fracOfStep, double yearsInStep)
@@ -164,6 +162,4 @@ TileInfoRow TileInfoRecord::asPersistable() const {
 
 void TileInfoRecord::merge(const TileInfoRecord& other) {}
 
-}  // namespace chapman_richards
-}  // namespace modules
-}  // namespace moja
+}  // namespace moja::modules::chapman_richards

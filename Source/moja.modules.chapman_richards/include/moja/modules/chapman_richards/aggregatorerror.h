@@ -6,14 +6,12 @@
 #include <moja/flint/modulebase.h>
 
 namespace moja {
+
 namespace flint {
 class SpatialLocationInfo;
-}
-}  // namespace moja
+}  // namespace flint
 
-namespace moja {
-namespace modules {
-namespace chapman_richards {
+namespace modules::chapman_richards {
 
 class CHAPMAN_RICHARDS_API AggregatorError : public flint::ModuleBase {
   public:
@@ -38,6 +36,5 @@ class CHAPMAN_RICHARDS_API AggregatorError : public flint::ModuleBase {
    std::shared_ptr<const flint::SpatialLocationInfo> spatial_location_info_;
 };
 
-}  // namespace chapman_richards
-}  // namespace modules
+}  // namespace modules::chapman_richards
 }  // namespace moja

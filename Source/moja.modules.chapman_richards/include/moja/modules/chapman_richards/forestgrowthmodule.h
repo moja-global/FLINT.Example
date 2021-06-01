@@ -4,12 +4,13 @@
 #include <moja/flint/modulebase.h>
 
 namespace moja {
+
 namespace flint {
 class IPool;
 class IVariable;
 }  // namespace flint
-namespace modules {
-namespace chapman_richards {
+
+namespace modules::chapman_richards {
 
 class ForestType;
 
@@ -44,6 +45,5 @@ class CHAPMAN_RICHARDS_API ForestGrowthModule : public moja::flint::ModuleBase {
    const flint::IVariable* forest_type_ = nullptr;
 };
 
-}  // namespace chapman_richards
-}  // namespace modules
+}  // namespace modules::chapman_richards
 }  // namespace moja

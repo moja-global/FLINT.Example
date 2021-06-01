@@ -13,9 +13,7 @@
 #include <string>
 #include <vector>
 
-namespace moja {
-namespace modules {
-namespace chapman_richards {
+namespace moja::modules::chapman_richards {
 
 class CHAPMAN_RICHARDS_API AggregatorLandUnit : public flint::ModuleBase {
   public:
@@ -122,6 +120,4 @@ class CHAPMAN_RICHARDS_API AggregatorLandUnit : public flint::ModuleBase {
    Int64 constructed_tile_id_;
 };
 
-}  // namespace chapman_richards
-}  // namespace modules
-}  // namespace moja
+}  // namespace moja::modules::chapman_richards

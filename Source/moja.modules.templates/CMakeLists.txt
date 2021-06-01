@@ -4,13 +4,10 @@ string(TOUPPER "${PACKAGE}" LIBNAME_EXPORT)
 
 include(${CMAKE_MODULE_PATH}/generate_library_version.cmake) 
 
-find_package(Boost COMPONENTS log log_setup REQUIRED)
-message(STATUS "Boost version: ${Boost_VERSION}")
-find_package(fmt CONFIG REQUIRED)
-
 find_package(Poco REQUIRED Foundation JSON Data DataSQLite)
+find_package(Boost COMPONENTS log log_setup REQUIRED)
+find_package(fmt CONFIG REQUIRED)
 find_package(moja REQUIRED COMPONENTS moja.flint)
-
 
 # Set DLL version info
 if (MSVC)
@@ -29,58 +26,29 @@ configure_file(../templates/exports.h ${CMAKE_CURRENT_SOURCE_DIR}/include/moja/m
 
 set(MOJA_TEMPLATES_headers
 	include/moja/modules/${PACKAGE}/_modules.${PACKAGE}_exports.h
-	# include/moja/modules/${PACKAGE}/commondata.h
 	include/moja/modules/${PACKAGE}/libraryfactory.h
-	# include/moja/modules/${PACKAGE}/record.h
-	# include/moja/modules/${PACKAGE}/systemsettings.h
 )
 
 set(MOJA_TEMPLATES_sources
-	# src/commondata.cpp
 	src/libraryfactory.cpp
-	# src/record.cpp
 )
 
 set(MOJA_TEMPLATES_Modules_headers
-	# include/moja/modules/${PACKAGE}/aggregatorerror.h
-	# include/moja/modules/${PACKAGE}/aggregatorlandunit.h
-	# include/moja/modules/${PACKAGE}/buildlandunitmodule.h
-	# include/moja/modules/${PACKAGE}/disturbanceeventmodule.h
-	# include/moja/modules/${PACKAGE}/forestgrowthmodule.h
-	# include/moja/modules/${PACKAGE}/landunitsqlitewriter.h
 )
 
 set(MOJA_TEMPLATES_Modules_sources
-    # src/aggregatorerror.cpp
-	# src/aggregatorlandunit.cpp
-	# src/buildlandunitmodule.cpp
-	# src/disturbanceeventmodule.cpp
-	# src/forestgrowthmodule.cpp
-	# src/landunitsqlitewriter.cpp
 )
 
 set(MOJA_TEMPLATES_Transform_Headers
-	# include/moja/modules/${PACKAGE}/hansenforestcovertransform.h
 )
 
 set(MOJA_TEMPLATES_Transform_Sources
-	# src/hansenforestcovertransform.cpp
 )
 
 set(MOJA_TEMPLATES_Flintdata_Headers
-	# include/moja/modules/${PACKAGE}/disturbanceevents.h
-	# include/moja/modules/${PACKAGE}/forestevents.h
-	# include/moja/modules/${PACKAGE}/foresttype.h
-	# include/moja/modules/${PACKAGE}/landcovertransition.h
-	# include/moja/modules/${PACKAGE}/runstatistics.h
-	# include/moja/modules/${PACKAGE}/simulationunitdata.h
 )
 
 set(MOJA_TEMPLATES_Flintdata_Sources
-	# src/forestevents.cpp
-	# src/foresttype.cpp
-	# src/landcovertransition.cpp
-	# src/runstatistics.cpp
 )
 
 source_group("header files\\other"				FILES ${MOJA_TEMPLATES_headers})
@@ -99,27 +67,26 @@ set(SRCS
 add_library(${LIBNAME} ${LIB_MODE} ${SRCS} ${ProductVersionFiles})
 add_library(${PROJECT_NAME}::${LIBNAME} ALIAS ${LIBNAME})
 
+target_include_directories(${LIBNAME}
+    PUBLIC 
+        $<INSTALL_INTERFACE:include>    
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+
 set_target_properties(${LIBNAME} 
     PROPERTIES
     VERSION ${CR_VERSION} 
 	SOVERSION ${CR_VERSION_MAJOR}
     DEFINE_SYMBOL ${LIBNAME_EXPORT}_EXPORTS)
 
-target_compile_features(${LIBNAME} PUBLIC cxx_std_14)
+target_compile_features(${LIBNAME} PUBLIC cxx_std_17)
 set_target_properties(${LIBNAME} PROPERTIES CXX_EXTENSIONS OFF)	
-
-target_compile_definitions(${LIBNAME} PUBLIC BOOST_ALL_DYN_LINK)
-
-target_include_directories(${LIBNAME} 
-	PRIVATE 
-		include 
-)
 
 target_link_libraries(${LIBNAME} 
 		fmt::fmt-header-only
-		moja::moja.flint moja::moja.core moja::moja.flint.configuration moja::moja.datarepository
-		Poco::Foundation Poco::Data Poco::DataSQLite 
-		Boost::log 
+		moja::moja.flint 
 )
 
 if (ENABLE_TESTS)

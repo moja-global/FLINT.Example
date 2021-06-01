@@ -10,11 +10,9 @@
 #include <moja/signals.h>
 
 #include <boost/algorithm/string.hpp>
-#include <boost/format.hpp>
+#include <fmt/format.h>
 
-namespace moja {
-namespace modules {
-namespace chapman_richards {
+namespace moja::modules::chapman_richards {
 
 void AggregatorError::configure(const DynamicObject& config) {
    system_settings_.log_errors = true;
@@ -46,8 +44,7 @@ void AggregatorError::onLocalDomainInit() {
           _landUnitData->getVariable("spatialLocationInfo")->value().extract<std::shared_ptr<flint::IFlintData>>());
       simulation_unit_data_->log_error_count = 0;
    } catch (flint::VariableNotFoundException& exc) {
-      auto str =
-          ((boost::format("Variable not found: %1%") % *(boost::get_error_info<flint::VariableName>(exc))).str());
+      const auto str = fmt::format("Variable not found: {}", *(boost::get_error_info<flint::VariableName>(exc)));
       BOOST_THROW_EXCEPTION(flint::LocalDomainError()
                             << flint::Details(str) << flint::LibraryName("moja,modules.chapman_richards")
                             << flint::ModuleName(BOOST_CURRENT_FUNCTION) << flint::ErrorCode(1));
@@ -73,8 +70,7 @@ void AggregatorError::onError(std::string msg) {
       // Db's weren't handling the newlines very well
       boost::replace_all(msg, "\n", " ");
       simulation_unit_data_->error_log.accumulate(
-          {0,
-           spatial_location_info_->_tileIdx, spatial_location_info_->_blockIdx, spatial_location_info_->_cellIdx,
+          {0, spatial_location_info_->_tileIdx, spatial_location_info_->_blockIdx, spatial_location_info_->_cellIdx,
            spatial_location_info_->_randomSeedGlobal, spatial_location_info_->_randomSeedBlock,
            spatial_location_info_->_randomSeedCell, spatial_location_info_->_tileLatLon.lat,
            spatial_location_info_->_tileLatLon.lon, spatial_location_info_->_blockLatLon.lat,
@@ -86,6 +82,4 @@ void AggregatorError::onError(std::string msg) {
    simulation_unit_data_->log_error_count++;
 }
 
-}  // namespace indo
-}  // namespace modules
-}  // namespace moja
+}  // namespace moja::modules::chapman_richards

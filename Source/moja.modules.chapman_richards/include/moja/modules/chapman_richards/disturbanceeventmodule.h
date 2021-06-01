@@ -10,8 +10,8 @@ namespace flint {
 class IPool;
 class IVariable;
 }  // namespace flint
-namespace modules {
-namespace chapman_richards {
+
+namespace modules::chapman_richards {
 class ForestFireEvent;
 
 class CHAPMAN_RICHARDS_API DisturbanceEventModule : public flint::ModuleBase, DisturbanceEventHandler {
@@ -42,6 +42,5 @@ class CHAPMAN_RICHARDS_API DisturbanceEventModule : public flint::ModuleBase, Di
    flint::IVariable* forest_type_;
 };
 
-}  // namespace chapman_richards
-}  // namespace modules
+}  // namespace modules::chapman_richards
 }  // namespace moja

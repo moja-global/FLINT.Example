@@ -7,9 +7,7 @@
 
 #include <moja/dynamic.h>
 
-namespace moja {
-namespace modules {
-namespace chapman_richards {
+namespace moja::modules::chapman_richards {
 
 class ForestPlantEvent;
 class ForestClearEvent;
@@ -100,6 +98,4 @@ void DisturbanceEventsList::emplace_back(Args&&... args) {
    _list.emplace_back(std::forward<Args>(args)...);
 }
 
-}  // namespace chapman_richards
-}  // namespace modules
-}  // namespace moja
+}  // namespace moja::modules::chapman_richards

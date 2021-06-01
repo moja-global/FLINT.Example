@@ -1,44 +1,31 @@
-#ifndef MOJA_FLINT_EXAMPLE_BASE_COMPOSITETRANSFORM_H_
-#define MOJA_FLINT_EXAMPLE_BASE_COMPOSITETRANSFORM_H_
-
-#include "moja/flint/example/base/_modules.base_exports.h"
+#pragma once
 
 #include <moja/flint/itransform.h>
+
 #include <moja/dynamic.h>
 
-namespace moja {
-    namespace flint {
-        class IVariable;
-    }
-}
+namespace moja::flint {
+class IVariable;
+namespace example::base {
 
-namespace moja {
-namespace flint {
-namespace example {
-namespace base {
-
-class TimeSeriesTransform : public flint::ITransform {
+class TimeSeriesTransform : public ITransform {
   public:
    enum Format { Wide, Long };
 
-   void configure(DynamicObject config, const flint::ILandUnitController& landUnitController,
+   void configure(DynamicObject config, const ILandUnitController& landUnitController,
                   moja::datarepository::DataRepository& dataRepository) override;
 
-   void controllerChanged(const flint::ILandUnitController& controller) override;
+   void controllerChanged(const ILandUnitController& controller) override;
    const DynamicVar& value() const override;
 
   private:
-   const flint::ILandUnitController* _landUnitController;
-   datarepository::DataRepository* _dataRepository;
+   const ILandUnitController* _landUnitController = nullptr;
+   datarepository::DataRepository* _dataRepository = nullptr;
 
    std::vector<double> _values;
    mutable DynamicVar _currentValue;
    mutable std::string _dataPropertyName;
 };
 
-}  // namespace base
-}  // namespace example
-}  // namespace flint
-}  // namespace moja
-
-#endif // MOJA_FLINT_EXAMPLE_BASE_COMPOSITETRANSFORM_H_
+}  // namespace example::base
+}  // namespace moja::flint

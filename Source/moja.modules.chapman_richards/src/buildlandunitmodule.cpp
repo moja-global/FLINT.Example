@@ -1,6 +1,8 @@
 #include "moja/modules/chapman_richards/buildlandunitmodule.h"
 
 #include "moja/modules/chapman_richards/forestevents.h"
+#include "moja/modules/chapman_richards/foresttype.h"
+#include "moja/modules/chapman_richards/landcovertransition.h"
 
 #include <moja/flint/eventqueue.h>
 #include <moja/flint/flintexceptions.h>
@@ -11,13 +13,9 @@
 #include <moja/notificationcenter.h>
 #include <moja/signals.h>
 
-#include <boost/format.hpp>
-#include "moja/modules/chapman_richards/landcovertransition.h"
-#include "moja/modules/chapman_richards/foresttype.h"
+#include <fmt/format.h>
 
-namespace moja {
-namespace modules {
-namespace chapman_richards {
+namespace moja::modules::chapman_richards {
 
 void BuildLandUnitModule::subscribe(NotificationCenter& notificationCenter) {
    notificationCenter.subscribe(signals::LocalDomainInit, &BuildLandUnitModule::onLocalDomainInit, *this);
@@ -39,7 +37,7 @@ void BuildLandUnitModule::onLocalDomainInit() {
 
    } catch (flint::VariableNotFoundException& exc) {
       const auto variable_name = *(boost::get_error_info<flint::VariableName>(exc));
-      const auto str = ((boost::format("Variable not found: %1%") % variable_name).str());
+      const auto str = fmt::format("Variable not found: {}", variable_name);
       BOOST_THROW_EXCEPTION(flint::LocalDomainError()
                             << flint::Details(str) << flint::LibraryName("moja.modules.chapman_richards")
                             << flint::ModuleName(BOOST_CURRENT_FUNCTION) << flint::ErrorCode(1));
@@ -63,8 +61,7 @@ void BuildLandUnitModule::onPreTimingSequence() {
       }
 
       // time series
-      auto land_cover_transitions =
-          forest_cover_var_->value().extract<const std::vector<LandcoverTransition>>();
+      auto land_cover_transitions = forest_cover_var_->value().extract<const std::vector<LandcoverTransition>>();
 
       // static
       const auto timing = _landUnitData->timing();
@@ -78,7 +75,8 @@ void BuildLandUnitModule::onPreTimingSequence() {
 
       auto tier1_cover = LandcoverTransition::landcover_type::nodata;
       LandcoverTransition::landcover_type prev_tier1_cover;
-      for (auto landcover_transition = land_cover_transitions.begin(); landcover_transition != land_cover_transitions.end(); ++landcover_transition) {
+      for (auto landcover_transition = land_cover_transitions.begin();
+           landcover_transition != land_cover_transitions.end(); ++landcover_transition) {
          prev_tier1_cover = tier1_cover;
          tier1_cover = landcover_transition->landcover;
          if (landcover_transition == land_cover_transitions.begin()) {
@@ -120,7 +118,6 @@ int BuildLandUnitModule::get_forest_type() {
 
 void BuildLandUnitModule::set_initial_land_cover(LandcoverTransition::landcover_type landcover) {
    if (landcover == LandcoverTransition::landcover_type::forest) {
-
       const auto forest_type_id = get_forest_type();
       const auto forest_types_var = _landUnitData->getVariable("forest_types");
       const auto forest_types = std::static_pointer_cast<const ForestTypeList>(
@@ -137,6 +134,4 @@ void BuildLandUnitModule::set_initial_land_cover(LandcoverTransition::landcover_
    }
 }
 
-}  // namespace chapman_richards
-}  // namespace modules
-}  // namespace moja
+}  // namespace moja::modules::chapman_richards

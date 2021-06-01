@@ -14,11 +14,8 @@
 #include <moja/signals.h>
 
 #include <fmt/format.h>
-#include <boost/format.hpp>
 
-namespace moja {
-namespace modules {
-namespace chapman_richards {
+namespace moja::modules::chapman_richards {
 
 inline double decay_frac(double f, double yrs) { return 1.0 - std::pow(1 - f, yrs); }
 
@@ -70,12 +67,12 @@ void ForestGrowthModule::onTimingStep() {
 
    const auto timing = _landUnitData->timing();
    const auto step_len_in_yrs = timing->stepLengthInYears();
-   auto forest_type =
-       std::static_pointer_cast<const ForestType>(forest_type_->value().extract<const std::shared_ptr<flint::IFlintData>>());
+   auto forest_type = std::static_pointer_cast<const ForestType>(
+       forest_type_->value().extract<const std::shared_ptr<flint::IFlintData>>());
    const double forest_age_start = forest_age_->value();
 
    if (!(FloatCmp::greaterThanOrEqualTo(forest_age_start, 0.0))) {
-      const auto str = ((boost::format("treeAge (%1%) not >= 0") % forest_age_start).str());
+      const auto str = fmt::format("treeAge ({}) not >= 0", forest_age_start);
       BOOST_THROW_EXCEPTION(flint::SimulationError()
                             << flint::Details(str) << flint::LibraryName("moja.modules.chapman_richards")
                             << flint::ModuleName("ForestGrowthModule::updateTreeProperties") << flint::ErrorCode(2));
@@ -88,8 +85,10 @@ void ForestGrowthModule::onTimingStep() {
    const auto starting_biomass = calculate_forest_biomass(forest_type.get(), forest_age_start);
    const auto ending_biomass = calculate_forest_biomass(forest_type.get(), tree_age_end);
 
-   const auto production_agb = (ending_biomass.above_ground - starting_biomass.above_ground) * forest_type->carbon_frac_ag;
-   const auto production_bgb = (ending_biomass.below_ground - starting_biomass.below_ground) * forest_type->carbon_frac_bg;
+   const auto production_agb =
+       (ending_biomass.above_ground - starting_biomass.above_ground) * forest_type->carbon_frac_ag;
+   const auto production_bgb =
+       (ending_biomass.below_ground - starting_biomass.below_ground) * forest_type->carbon_frac_bg;
 
    // Turnover
    const auto turnover_abg = above_ground_cm->value() * decay_frac(forest_type->turnover_frac_ag, step_len_in_yrs);
@@ -99,18 +98,16 @@ void ForestGrowthModule::onTimingStep() {
    DynamicVar production_data = std::make_shared<flint::OperationDataPackage>(flint::FluxType::NPP);
    auto production = _landUnitData->createStockOperation(production_data);
    production->addTransfer(atmosphere_, above_ground_cm, production_agb + turnover_abg)
-             ->addTransfer(atmosphere_, below_ground_cm, production_bgb + turnover_bbg);
+       ->addTransfer(atmosphere_, below_ground_cm, production_bgb + turnover_bbg);
    _landUnitData->submitOperation(production);
 
    DynamicVar turnover_data = std::make_shared<flint::OperationDataPackage>(flint::FluxType::Turnover);
    auto turnover = _landUnitData->createStockOperation(production_data);
    turnover->addTransfer(above_ground_cm, dead_organic_cm, turnover_abg)
-           ->addTransfer(above_ground_cm, dead_organic_cm, turnover_bbg);
+       ->addTransfer(above_ground_cm, dead_organic_cm, turnover_bbg);
    _landUnitData->submitOperation(turnover);
 
    forest_age_->set_value(tree_age_end);
 }
 
-}  // namespace chapman_richards
-}  // namespace modules
-}  // namespace moja
+}  // namespace moja::modules::chapman_richards

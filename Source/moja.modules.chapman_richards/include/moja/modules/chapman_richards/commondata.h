@@ -6,9 +6,7 @@
 
 #include <moja/flint/recordaccumulatorwithmutex.h>
 
-namespace moja {
-namespace modules {
-namespace chapman_richards {
+namespace moja::modules::chapman_richards {
 
 // Export the class when compiling the DLL,
 // otherwise import the class when using the DLL.
@@ -46,6 +44,4 @@ class CHAPMAN_RICHARDS_API ObjectHolder {
    std::shared_ptr<std::vector<std::string>> classifier_names;
 };
 
-}  // namespace chapman_richards
-}  // namespace modules
-}  // namespace moja
+}  // namespace moja::modules::chapman_richards

@@ -4,15 +4,11 @@
 
 #include <moja/flint/iflintdata.h>
 
-namespace Poco {
-namespace Data {
+namespace Poco::Data {
 class Session;
-}
-}  // namespace Poco
+}  // namespace Poco::Data
 
-namespace moja {
-namespace modules {
-namespace chapman_richards {
+namespace moja::modules::chapman_richards {
 
 class CHAPMAN_RICHARDS_API RunStatistics : public flint::IFlintData {
   public:
@@ -40,6 +36,4 @@ class CHAPMAN_RICHARDS_API RunStatistics : public flint::IFlintData {
    std::vector<std::tuple<std::string, Int64&>> stat_tuple_list;
 };
 
-}  // namespace chapman_richards
-}  // namespace modules
-}  // namespace moja
+}  // namespace moja::modules::chapman_richards

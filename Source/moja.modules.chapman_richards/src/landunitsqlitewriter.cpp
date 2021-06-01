@@ -1,6 +1,5 @@
 #include "moja/modules/chapman_richards/landunitsqlitewriter.h"
 
-#include "moja/modules/chapman_richards/commondata.h"
 #include "moja/modules/chapman_richards/runstatistics.h"
 
 #include <moja/flint/idnamedesccollection.h>
@@ -19,27 +18,22 @@
 #include <Poco/File.h>
 #include <Poco/Path.h>
 
-#include <boost/format.hpp>
+#include <fmt/format.h>
 
 #include <thread>
 
 using namespace Poco::Data::Keywords;
 using namespace Poco::Data;
 
-namespace moja {
-namespace modules {
-namespace chapman_richards {
+namespace moja::modules::chapman_richards {
 
 constexpr unsigned int SQLITE_RETRY_ATTEMPTS = 10000;
 constexpr std::chrono::milliseconds SQLITE_RETRY_SLEEP = std::chrono::milliseconds(200);
-// --------------------------------------------------------------------------------------------
 
 void LandUnitSQLiteWriter::configure(const DynamicObject& config) {
    system_settings_.db_name_sqlite = config["databasename"].convert<std::string>();
    system_settings_.generated_db_name_sqlite = system_settings_.db_name_sqlite;
 }
-
-// --------------------------------------------------------------------------------------------
 
 void LandUnitSQLiteWriter::subscribe(NotificationCenter& notificationCenter) {
    notificationCenter.subscribe(signals::SystemInit, &LandUnitSQLiteWriter::onSystemInit, *this);
@@ -49,8 +43,6 @@ void LandUnitSQLiteWriter::subscribe(NotificationCenter& notificationCenter) {
    notificationCenter.subscribe(signals::LocalDomainProcessingUnitShutdown,
                                 &LandUnitSQLiteWriter::onLocalDomainProcessingUnitShutdown, *this);
 }
-
-// --------------------------------------------------------------------------------------------
 
 void LandUnitSQLiteWriter::onSystemInit() {
    simulation_unit_data_ = std::static_pointer_cast<SimulationUnitData>(
@@ -101,7 +93,8 @@ void LandUnitSQLiteWriter::onSystemInit() {
                 "cell_latitude FLOAT, cell_logitude FLOAT, random_seed_global UNSIGNED BIG INT, random_seed_tile "
                 "UNSIGNED BIG INT, random_seed_block UNSIGNED BIG INT, random_seed_cell UNSIGNED BIG INT)",
                 "CREATE TABLE flux_reporting_results 			(flux_reporting_results_id_pk 		"
-                "	UNSIGNED BIG INT NOT NULL, iteration INTEGER NOT NULL, localDomainId INTEGER NOT NULL, date_dimension_id_fk UNSIGNED BIG "
+                "	UNSIGNED BIG INT NOT NULL, iteration INTEGER NOT NULL, localDomainId INTEGER NOT NULL, "
+                "date_dimension_id_fk UNSIGNED BIG "
                 "INT NOT NULL, location_dimension_id_fk UNSIGNED BIG INT NOT NULL, fluxtypeinfo_dimension_id_fk "
                 "UNSIGNED BIG INT, source_poolinfo_dimension_id_fk UNSIGNED BIG INT NOT NULL, "
                 "sink_poolinfo_dimension_id_fk UNSIGNED BIG INT NOT NULL, flux FLOAT, itemCount INTEGER NOT NULL)",
@@ -130,7 +123,8 @@ void LandUnitSQLiteWriter::onSystemInit() {
             if (system_settings_.do_stock)
                ddl.push_back(
                    "CREATE TABLE stock_reporting_results	(stock_reporting_results_id_pk	UNSIGNED BIG INT NOT "
-                   "NULL, iteration INTEGER NOT NULL, localDomainId INTEGER NOT NULL, date_dimension_id_fk UNSIGNED BIG INT NOT NULL, "
+                   "NULL, iteration INTEGER NOT NULL, localDomainId INTEGER NOT NULL, date_dimension_id_fk UNSIGNED "
+                   "BIG INT NOT NULL, "
                    "location_dimension_id_fk UNSIGNED BIG INT NOT NULL, poolinfo_dimension_id_fk UNSIGNED BIG INT NOT "
                    "NULL, value FLOAT, itemCount INTEGER NOT NULL)");
             if (system_settings_.log_errors)
@@ -186,8 +180,6 @@ void LandUnitSQLiteWriter::onSystemInit() {
    }
 }
 
-// --------------------------------------------------------------------------------------------
-
 void LandUnitSQLiteWriter::onSystemShutdown() {
    try {
       std::vector<runStatDataRecord> run_stat_data;
@@ -226,10 +218,9 @@ void LandUnitSQLiteWriter::onSystemShutdown() {
             std::vector<std::string> classifierStrings;
 
             std::vector<std::string> ddl{
-                (boost::format("CREATE TABLE classifierset_dimension (classifierset_dimension_id_pk UNSIGNED BIG INT "
-                               "PRIMARY KEY, number_classifiers INT, %1% VARCHAR)") %
-                 boost::join(*classifier_names_, " VARCHAR, "))
-                    .str()};
+                fmt::format("CREATE TABLE classifierset_dimension (classifierset_dimension_id_pk UNSIGNED BIG INT "
+                            "PRIMARY KEY, number_classifiers INT, {} VARCHAR)",
+                            fmt::join(*classifier_names_, " VARCHAR, "))};
             for (const auto& sql : ddl) {
                tryExecute(session, [&sql](auto& session) { session << sql, now; });
             }
@@ -252,9 +243,8 @@ void LandUnitSQLiteWriter::onSystemShutdown() {
                placeholders.emplace_back("?");
             }
 
-            auto sql = (boost::format("INSERT INTO classifierset_dimension VALUES (?, ?, %1%)") %
-                        boost::join(placeholders, ", "))
-                           .str();
+            auto sql =
+                fmt::format("INSERT INTO classifierset_dimension VALUES (?, ?, {})", fmt::join(placeholders, ", "));
 
             tryExecute(session, [this, &sql, &classifier_count](auto& session) {
                for (auto classifier_set_row : this->classifier_set_dimension_->getPersistableCollection()) {
@@ -315,14 +305,10 @@ void LandUnitSQLiteWriter::onSystemShutdown() {
    }
 }
 
-// --------------------------------------------------------------------------------------------
-
 void LandUnitSQLiteWriter::onLocalDomainInit() {
    simulation_unit_data_ = std::static_pointer_cast<SimulationUnitData>(
        _landUnitData->getVariable("simulationUnitData")->value().extract<std::shared_ptr<flint::IFlintData>>());
 }
-
-// --------------------------------------------------------------------------------------------
 
 void LandUnitSQLiteWriter::onLocalDomainShutdown() {
    if (!system_settings_.block_index_on) {
@@ -338,8 +324,6 @@ void LandUnitSQLiteWriter::onLocalDomainShutdown() {
                    simulation_unit_data_->end_local_domain_time, simulation_unit_data_->lu_count_local_domain);
 }
 
-// --------------------------------------------------------------------------------------------
-
 void LandUnitSQLiteWriter::onLocalDomainProcessingUnitShutdown() {
    if (system_settings_.block_index_on) {
       writeFlux();
@@ -351,8 +335,6 @@ void LandUnitSQLiteWriter::onLocalDomainProcessingUnitShutdown() {
    writeRunStats("ProcessingUnit", simulation_unit_data_->start_processing_unit_time,
                  simulation_unit_data_->end_processing_unit_time, simulation_unit_data_->lu_count_processing_unit);
 }
-
-// --------------------------------------------------------------------------------------------
 
 void LandUnitSQLiteWriter::writeStock() const {
    try {
@@ -406,8 +388,6 @@ void LandUnitSQLiteWriter::writeStock() const {
    }
 }
 
-// --------------------------------------------------------------------------------------------
-
 void LandUnitSQLiteWriter::writeFlux() const {
    try {
       auto persistables = simulation_unit_data_->flux_results.getPersistableCollection();
@@ -460,8 +440,6 @@ void LandUnitSQLiteWriter::writeFlux() const {
       throw;
    }
 }
-
-// --------------------------------------------------------------------------------------------
 
 void LandUnitSQLiteWriter::writeErrorLog() const {
    try {
@@ -517,8 +495,6 @@ void LandUnitSQLiteWriter::writeErrorLog() const {
    }
 }
 
-// --------------------------------------------------------------------------------------------
-
 void LandUnitSQLiteWriter::writeRunStats(std::string unitLabel, DateTime& startTime, DateTime& finishTime,
                                          Int64 luCount) const {
    std::vector<runStatDataRecord> run_stat_data;
@@ -527,15 +503,15 @@ void LandUnitSQLiteWriter::writeRunStats(std::string unitLabel, DateTime& startT
       auto span = finishTime - startTime;
       const auto unit_span_in_microseconds = span.microseconds();
 
-      const auto start_label = (boost::format("%1%_start") % unitLabel).str();
-      const auto finish_label = (boost::format("%1%_finish") % unitLabel).str();
-      const auto lu_count_label = (boost::format("%1%_lu_count") % unitLabel).str();
-      const auto lu_span_label = (boost::format("%1%_span_microseconds") % unitLabel).str();
+      const auto start_label = fmt::format("{}_start", unitLabel);
+      const auto finish_label = fmt::format("{}_finish", unitLabel);
+      const auto lu_count_label = fmt::format("{}_lu_count", unitLabel);
+      const auto lu_span_label = fmt::format("{}_span_microseconds", unitLabel);
 
-      const auto start = (boost::format("%1%") % startTime).str();
-      const auto finish = (boost::format("%1%") % finishTime).str();
-      const auto lu_count = (boost::format("%1%") % luCount).str();
-      const auto lu_span = (boost::format("%1%") % unit_span_in_microseconds).str();
+      const auto start = fmt::format("{}", startTime.toString());
+      const auto finish = fmt::format("{}", finishTime.toString());
+      const auto lu_count = fmt::format("{}", luCount);
+      const auto lu_span = fmt::format("{}", unit_span_in_microseconds);
 
       run_stat_data.emplace_back(0, simulation_unit_data_->process_unit_count, "LandUnitSQLiteWriter", start_label,
                                  start);
@@ -597,8 +573,6 @@ void LandUnitSQLiteWriter::writeRunStats(std::string unitLabel, DateTime& startT
    }
 }
 
-// --------------------------------------------------------------------------------------------
-
 void LandUnitSQLiteWriter::writeRunSummary(std::string unitLabel, DateTime& startTime, DateTime& finishTime,
                                            Int64 luCount) const {
    try {
@@ -651,26 +625,22 @@ void LandUnitSQLiteWriter::writeRunSummary(std::string unitLabel, DateTime& star
    }
 }
 
-// --------------------------------------------------------------------------------------------
-
 template <typename TAccumulator>
 void LandUnitSQLiteWriter::load(Session& session, const std::string& table,
                                 std::shared_ptr<TAccumulator> dataDimension) {
-   MOJA_LOG_INFO << (boost::format("Loading %1%") % table).str();
+   MOJA_LOG_INFO << fmt::format("Loading {}", table);
    tryExecute(session, [table, dataDimension](auto& session) {
       auto data = dataDimension->getPersistableCollection();
       if (!data.empty()) {
          std::vector<std::string> placeholders;
          for (auto i = 0; i < data[0].length; i++) {
-            placeholders.push_back("?");
+            placeholders.emplace_back("?");
          }
-         auto sql = (boost::format("INSERT INTO %1% VALUES (%2%)") % table % boost::join(placeholders, ", ")).str();
+         auto sql = fmt::format("INSERT INTO {} VALUES ({}})", table, fmt::join(placeholders, ", "));
          session << sql, use(data), now;
       }
    });
 }
-
-// --------------------------------------------------------------------------------------------
 
 void LandUnitSQLiteWriter::tryExecute(Session& session, std::function<void(Session&)> fn) {
    try {
@@ -692,6 +662,4 @@ void LandUnitSQLiteWriter::tryExecute(Session& session, std::function<void(Sessi
    }
 }
 
-}  // namespace chapman_richards
-}  // namespace modules
-}  // namespace moja
+}  // namespace moja::modules::chapman_richards

@@ -33,10 +33,10 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 # Allow enabling and disabling components
-option(ENABLE_MOJA_FLINT_EXAMPLE_BASE	      "moja.flint.example.base"			    ON)
-option(ENABLE_MOJA_FLINT_EXAMPLE_ROTHC	    "moja.flint.example.rothc"			  ON)
-option(ENABLE_MOJA_MODULES_CHAPMAN_RICHARDS "moja.modules.chapman_richards"   ON)
-option(ENABLE_MOJA_MODULES_TEMPLATES        "moja.modules.templates"          ON)
+option(ENABLE_MOJA_FLINT_EXAMPLE_BASE	    "moja.flint.example.base" 	     ON)
+option(ENABLE_MOJA_FLINT_EXAMPLE_ROTHC	    "moja.flint.example.rothc"		 ON)
+option(ENABLE_MOJA_MODULES_CHAPMAN_RICHARDS "moja.modules.chapman_richards"  ON)
+option(ENABLE_MOJA_MODULES_TEMPLATES        "moja.modules.templates"         ON)
 
 set(default_build_type "Release")
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)

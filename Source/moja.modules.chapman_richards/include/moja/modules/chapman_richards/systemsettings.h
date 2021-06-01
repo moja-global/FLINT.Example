@@ -2,9 +2,7 @@
 
 #include "moja/modules/chapman_richards/_modules.chapman_richards_exports.h"
 
-namespace moja {
-namespace modules {
-namespace chapman_richards {
+namespace moja::modules::chapman_richards {
 
 // --------------------------------------------------------------------------------------------
 // This object will be created in the LibraryFactory and shared across all Modules/Threads that
@@ -47,6 +45,4 @@ class CHAPMAN_RICHARDS_API SystemSettings {
    bool log_error_per_block;
 };
 
-}  // namespace chapman_richards
-}  // namespace modules
-}  // namespace moja
+}  // namespace moja::modules::chapman_richards

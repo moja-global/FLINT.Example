@@ -5,16 +5,15 @@
 
 #include <moja/dynamic.h>
 
-namespace moja {
-namespace modules {
-namespace chapman_richards {
+namespace moja::modules::chapman_richards {
 
 std::shared_ptr<flint::IFlintData> createForestEventsFactory(const std::string& eventTypeStr, int id,
                                                              const std::string& name, const DynamicObject& other);
 
 class ForestPlantEvent final : public DisturbanceEventBase {
   public:
-   ForestPlantEvent(int id, const std::string& name) : DisturbanceEventBase(id, "chapman_richards.ForestPlantEvent", name) {}
+   ForestPlantEvent(int id, const std::string& name)
+       : DisturbanceEventBase(id, "chapman_richards.ForestPlantEvent", name) {}
    virtual ~ForestPlantEvent() = default;
 
    void configure(DynamicObject config, const flint::ILandUnitController& landUnitController,
@@ -28,7 +27,8 @@ class ForestPlantEvent final : public DisturbanceEventBase {
 
 class ForestClearEvent final : public DisturbanceEventBase {
   public:
-   ForestClearEvent(int id, const std::string& name) : DisturbanceEventBase(id, "chapman_richards.ForestClearEvent", name) {}
+   ForestClearEvent(int id, const std::string& name)
+       : DisturbanceEventBase(id, "chapman_richards.ForestClearEvent", name) {}
    virtual ~ForestClearEvent() = default;
 
    void configure(DynamicObject config, const flint::ILandUnitController& landUnitController,
@@ -39,6 +39,4 @@ class ForestClearEvent final : public DisturbanceEventBase {
    bool is_clearing() const override;
 };
 
-}  // namespace chapman_richards
-}  // namespace modules
-}  // namespace moja
+}  // namespace moja::modules::chapman_richards

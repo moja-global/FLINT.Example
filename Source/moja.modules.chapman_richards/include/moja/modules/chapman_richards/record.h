@@ -1,7 +1,5 @@
 #pragma once
 
-#include "moja/modules/chapman_richards/_modules.chapman_richards_exports.h"
-
 #include <moja/flint/record.h>
 
 #include <moja/hash.h>
@@ -11,11 +9,8 @@
 
 #include <vector>
 
-namespace moja {
-namespace modules {
-namespace chapman_richards {
+namespace moja::modules::chapman_richards {
 
-// --------------------------------------------------------------------------------------------
 // id, step, substep, year, month, day, frac of step, years in step
 typedef Poco::Tuple<Int64, int, int, int, int, int, double, double> DateRow;
 class DateRecord {
@@ -43,7 +38,6 @@ class DateRecord {
    double _yearsInStep;
 };
 
-// --------------------------------------------------------------------------------------------
 // id, year
 typedef Poco::Tuple<Int64, int> DateAnnualRow;
 class DateAnnualRecord {
@@ -66,7 +60,6 @@ class DateAnnualRecord {
    int _year;
 };
 
-// --------------------------------------------------------------------------------------------
 // id, tileInfor Id, classifierSetId, sim unit count sum, sim unit area sum
 typedef Poco::Tuple<Int64, Int64, Int64, Int64, double> LocationNonTemporalRow;
 class LocationNonTemporalRecord {
@@ -92,7 +85,6 @@ class LocationNonTemporalRecord {
    double _simUnitAreaSum;  // 4
 };
 
-// --------------------------------------------------------------------------------------------
 // id, dateid, classifierSetId, sim unit count sum, sim unit area sum
 typedef Poco::Tuple<Int64, Int64, Int64, Int64, double> LocationTemporalRow;
 class LocationTemporalRecord {
@@ -118,8 +110,6 @@ class LocationTemporalRecord {
    double _simUnitAreaSum;  // 4
 };
 
-// --------------------------------------------------------------------------------------------
-// --------------------------------------------------------------------------------------------
 // id, classifier values
 typedef Poco::Tuple<Int64, int, std::vector<Poco::Nullable<std::string>>> ClassifierSetRow;
 class ClassifierSetRecord {
@@ -145,7 +135,6 @@ class ClassifierSetRecord {
    std::vector<Poco::Nullable<std::string>> _classifierValues;
 };
 
-// --------------------------------------------------------------------------------------------
 // id, pool name
 typedef Poco::Tuple<Int64, std::string, std::string, int, int, double, std::string> PoolInfoRow;
 class PoolInfoRecord {
@@ -174,7 +163,6 @@ class PoolInfoRecord {
    std::string _units;
 };
 
-// --------------------------------------------------------------------------------------------
 // id, tile index, block index, tile lat, tile Lon
 typedef Poco::Tuple<Int64, Poco::Nullable<UInt32>, Poco::Nullable<UInt32>, Poco::Nullable<UInt32>,
                     Poco::Nullable<double>, Poco::Nullable<double>, Poco::Nullable<double>, Poco::Nullable<double>,
@@ -231,7 +219,6 @@ class TileInfoRecord {
    Poco::Nullable<UInt32> _cellRandomSeed;
 };
 
-// --------------------------------------------------------------------------------------------
 // id, interation, localdomainid, date id, locn id, flux type id, itemCount, src pool id, dst pool id, flux value
 typedef Poco::Tuple<Int64, int, int, Int64, Int64, Poco::Nullable<Int64>, Int64, Int64, double, int> FluxRow;
 struct FluxKey {
@@ -301,7 +288,6 @@ struct FluxRecordConverter {
    }
 };
 
-// --------------------------------------------------------------------------------------------
 // id, localdomainid, date id, locn id, pool id, pool value, count
 typedef Poco::Tuple<Int64, int, int, Int64, Int64, Int64, double, int> StockRow;
 struct StockKey {
@@ -483,6 +469,5 @@ inline ErrorRow ErrorRecord::asPersistable() const {
 }
 
 inline void ErrorRecord::merge(const ErrorRecord& other) {}
-}  // namespace chapman_richards
-}  // namespace modules
-}  // namespace moja
+
+}  // namespace moja::modules::chapman_richards

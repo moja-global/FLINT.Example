@@ -1,38 +1,31 @@
-#ifndef MOJA_FLINT_EXAMPLE_ROTHC_PLANTRESIDUEMODULE_H_
-#define MOJA_FLINT_EXAMPLE_ROTHC_PLANTRESIDUEMODULE_H_
+#pragma once
 
 #include "moja/flint/example/rothc/_modules.rothc_exports.h"
-#include "moja/flint/modulebase.h"
 
-namespace moja {
-namespace flint {
-namespace example {
-namespace rothc {
+#include <moja/flint/modulebase.h>
 
-class ROTHC_API PlantResidueModule : public flint::ModuleBase {
-public:
-	PlantResidueModule() : ModuleBase() {}
-	virtual ~PlantResidueModule() = default;
+namespace moja::flint::example::rothc {
 
-	void configure(const DynamicObject& config) override;
-	void subscribe(NotificationCenter& notificationCenter) override;
+class ROTHC_API PlantResidueModule : public ModuleBase {
+  public:
+   PlantResidueModule() : ModuleBase() {}
+   virtual ~PlantResidueModule() = default;
 
-	void onTimingInit() override;
-	void onTimingStep() override;
+   void configure(const DynamicObject& config) override;
+   void subscribe(NotificationCenter& notificationCenter) override;
 
-private:
-	double _dFracPres;
-	double _rFracPres;
+   void onTimingInit() override;
+   void onTimingStep() override;
 
-	const flint::IPool* _soilDPM; // Decomposable Plant Material (DPM)
-	const flint::IPool* _soilRPM; // Resistant Plant Material (RPM)
-	const flint::IPool* _plantCM; // Resistant Plant Material (RPM)
+  private:
+   double _dFracPres;
+   double _rFracPres;
 
-	const flint::IVariable* _presCM;
+   const IPool* _soilDPM;  // Decomposable Plant Material (DPM)
+   const IPool* _soilRPM;  // Resistant Plant Material (RPM)
+   const IPool* _plantCM;  // Resistant Plant Material (RPM)
+
+   const IVariable* _presCM;
 };
 
-}
-}
-}
-} // namespace moja::flint::example:rothc
-#endif // MOJA_FLINT_EXAMPLE_ROTHC_PLANTRESIDUEMODULE_H_
+}  // namespace moja::flint::example::rothc

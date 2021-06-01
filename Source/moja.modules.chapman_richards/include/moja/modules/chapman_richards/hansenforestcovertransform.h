@@ -4,14 +4,10 @@
 
 #include <moja/flint/itransform.h>
 #include <moja/flint/ivariable.h>
-#include <moja/flint/spatiallocationinfo.h>
 
-#include <moja/datarepository/iproviderspatialrasterinterface.h>
 #include <moja/datetime.h>
 
-namespace moja {
-namespace modules {
-namespace chapman_richards {
+namespace moja::modules::chapman_richards {
 
 /*
 Tree canopy cover for year 2000 (treecover2000)
@@ -42,7 +38,7 @@ class CHAPMAN_RICHARDS_API HansenForestCoverTransform : public flint::ITransform
   private:
    DateTime calculate_transition_date(DateTime start_date, DateTime end_date) const;
    const flint::ILandUnitController* land_unit_controller_;
-   
+
    mutable DynamicVar cached_value_;
 
    // Variable handles
@@ -52,6 +48,4 @@ class CHAPMAN_RICHARDS_API HansenForestCoverTransform : public flint::ITransform
    const flint::IVariable* spatial_location_info_var_;
 };
 
-}  // namespace chapman_richards
-}  // namespace modules
-}  // namespace moja
+}  // namespace moja::modules::chapman_richards

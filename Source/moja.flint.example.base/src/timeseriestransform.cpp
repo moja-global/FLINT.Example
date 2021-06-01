@@ -2,22 +2,19 @@
 
 #include "moja/flint/flintexceptions.h"
 #include "moja/flint/ilandunitcontroller.h"
-#include "moja/flint/ivariable.h"
+
 #include <moja/flint/itiming.h>
 
 #include <moja/logging.h>
 
 #include <boost/algorithm/string.hpp>
 
-using moja::flint::IncompleteConfigurationException;
-using moja::flint::VariableNotFoundException;
+namespace moja::flint::example::base {
 
-namespace moja {
-namespace flint {
-namespace example {
-namespace base {
+using flint::IncompleteConfigurationException;
+using flint::VariableNotFoundException;
 
-void TimeSeriesTransform::configure(DynamicObject config, const flint::ILandUnitController& landUnitController,
+void TimeSeriesTransform::configure(DynamicObject config, const ILandUnitController& landUnitController,
                                     moja::datarepository::DataRepository& dataRepository) {
    _landUnitController = &landUnitController;
    _dataRepository = &dataRepository;
@@ -43,11 +40,11 @@ void TimeSeriesTransform::configure(DynamicObject config, const flint::ILandUnit
    }
 }
 
-void TimeSeriesTransform::controllerChanged(const flint::ILandUnitController& controller) {
+void TimeSeriesTransform::controllerChanged(const ILandUnitController& controller) {
    // opportunity to change cache if there is any kept
    //_cachedValue = nullptr;
    _landUnitController = &controller;
-};
+}
 
 // Step 0 will be the Init step, so I've added a blank value to the start of each dataset
 const DynamicVar& TimeSeriesTransform::value() const {
@@ -57,14 +54,10 @@ const DynamicVar& TimeSeriesTransform::value() const {
 
    // If past the end of values given for timeseries, use last valid value
    // Brutal, but effective here
-   if (curStep > (_values.size() - 1)) 
-	   curStep = _values.size() - 1;
+   if (curStep > (_values.size() - 1)) curStep = _values.size() - 1;
 
    _currentValue = _values[curStep];
    return _currentValue;
 }
 
-}  // namespace base
-}  // namespace example
-}  // namespace flint
-}  // namespace moja
+}  // namespace moja::flint::example::base

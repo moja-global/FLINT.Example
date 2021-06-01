@@ -3,21 +3,20 @@
 #include "moja/modules/chapman_richards/simulationunitdata.h"
 #include "moja/modules/chapman_richards/systemsettings.h"
 
+#include "foresttype.h"
+#include "landcovertransition.h"
+
 #include <moja/flint/modulebase.h>
 
 #include <boost/optional/optional_fwd.hpp>
-#include "landcovertransition.h"
-#include "foresttype.h"
 
 namespace moja {
+
 namespace flint {
 class EventQueue;
-}
-}  // namespace moja
+}  // namespace flint
 
-namespace moja {
-namespace modules {
-namespace chapman_richards {
+namespace modules::chapman_richards {
 
 class BuildLandUnitModule : public flint::ModuleBase {
   public:
@@ -43,7 +42,7 @@ class BuildLandUnitModule : public flint::ModuleBase {
    void onLocalDomainInit() override;
    void onPreTimingSequence() override;
 
-private:
+  private:
    int get_forest_type();
    void set_initial_land_cover(LandcoverTransition::landcover_type landcover);
 
@@ -60,9 +59,7 @@ private:
    flint::IVariable* forest_exists_var_;
    flint::IVariable* forest_age_var_;
    flint::IVariable* forest_type_var_;
-
 };
 
-}  // namespace chapman_richards
-}  // namespace modules
+}  // namespace modules::chapman_richards
 }  // namespace moja

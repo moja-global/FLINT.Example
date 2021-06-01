@@ -4,9 +4,7 @@
 
 #include <fmt/format.h>
 
-namespace moja {
-namespace modules {
-namespace chapman_richards {
+namespace moja::modules::chapman_richards {
 
 namespace constants {
 const std::string no_data_str = "no_data";
@@ -47,6 +45,4 @@ DynamicObject LandcoverTransition::exportObject() const {
    return object;
 }
 
-}  // namespace chapman_richards
-}  // namespace modules
-}  // namespace moja
+}  // namespace moja::modules::chapman_richards

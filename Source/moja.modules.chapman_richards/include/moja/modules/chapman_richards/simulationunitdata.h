@@ -9,9 +9,7 @@
 #include <moja/datetime.h>
 #include <moja/dynamic.h>
 
-namespace moja {
-namespace modules {
-namespace chapman_richards {
+namespace moja::modules::chapman_richards {
 
 class CHAPMAN_RICHARDS_API SimulationUnitData : public flint::IFlintData {
   public:
@@ -59,10 +57,6 @@ class CHAPMAN_RICHARDS_API SimulationUnitData : public flint::IFlintData {
 inline void SimulationUnitData::configure(DynamicObject config, const flint::ILandUnitController& landUnitController,
                                           datarepository::DataRepository& dataRepository) {}
 
-inline DynamicVar SimulationUnitData::getProperty(const std::string& key) const {
-   return DynamicVar();
-}
+inline DynamicVar SimulationUnitData::getProperty(const std::string& key) const { return DynamicVar(); }
 
-}  // namespace chapman_richards
-}  // namespace modules
-}  // namespace moja
+}  // namespace moja::modules::chapman_richards

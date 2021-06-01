@@ -3,13 +3,12 @@
 #include "moja/modules/chapman_richards/landcovertransition.h"
 
 #include <moja/flint/ilandunitcontroller.h>
+#include <moja/flint/itiming.h>
+#include <moja/flint/spatiallocationinfo.h>
 
 #include <moja/datarepository/datarepository.h>
-#include <moja/flint/itiming.h>
 
-namespace moja {
-namespace modules {
-namespace chapman_richards {
+namespace moja::modules::chapman_richards {
 
 void HansenForestCoverTransform::configure(DynamicObject config, const flint::ILandUnitController& landUnitController,
                                            datarepository::DataRepository& dataRepository) {
@@ -37,7 +36,6 @@ DateTime HansenForestCoverTransform::calculate_transition_date(DateTime start_da
 }
 
 const DynamicVar& HansenForestCoverTransform::value() const {
-
    const auto& timing = land_unit_controller_->timing();
    const int days_in_sim = (timing.endDate() - timing.startDate()).days();
 
@@ -55,7 +53,7 @@ const DynamicVar& HansenForestCoverTransform::value() const {
          land_cover_transitions.emplace_back(DateTime(2000, 1, 1), LandcoverTransition::landcover_type::forest);
       } else {
          land_cover_transitions.emplace_back(DateTime(2000, 1, 1), LandcoverTransition::landcover_type::non_forest);
-         if (!tree_gain.isEmpty() && tree_gain == true) { // Forest gain during the period 2000-2012
+         if (!tree_gain.isEmpty() && tree_gain == true) {  // Forest gain during the period 2000-2012
             auto gain_date = calculate_transition_date(DateTime(2000, 1, 1), DateTime(2012, 12, 31));
             land_cover_transitions.emplace_back(gain_date, LandcoverTransition::landcover_type::forest);
          }
@@ -66,7 +64,7 @@ const DynamicVar& HansenForestCoverTransform::value() const {
       auto loss_date = calculate_transition_date(DateTime(loss_year, 1, 1), DateTime(loss_year, 12, 31));
       land_cover_transitions.emplace_back(loss_date, LandcoverTransition::landcover_type::non_forest);
       if (!tree_gain.isEmpty() && tree_gain == true) {  // Forest gain during the period 2000-2012,
-         auto plant_date = loss_date.addYears(1);         // Plant at least 1 year after clearing
+         auto plant_date = loss_date.addYears(1);       // Plant at least 1 year after clearing
          if (plant_date < DateTime(2012, 12, 31)) {
             auto gain_date = calculate_transition_date(plant_date, DateTime(2012, 12, 31));
             land_cover_transitions.emplace_back(gain_date, LandcoverTransition::landcover_type::forest);
@@ -79,6 +77,4 @@ const DynamicVar& HansenForestCoverTransform::value() const {
    return cached_value_;
 }
 
-}  // namespace chapman_richards
-}  // namespace modules
-}  // namespace moja
+}  // namespace moja::modules::chapman_richards

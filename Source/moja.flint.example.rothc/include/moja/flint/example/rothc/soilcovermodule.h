@@ -1,34 +1,27 @@
-#ifndef MOJA_FLINT_EXAMPLE_ROTHC_SOILCOVERMODULE_H_
-#define MOJA_FLINT_EXAMPLE_ROTHC_SOILCOVERMODULE_H_
+#pragma once
 
 #include "moja/flint/example/rothc/_modules.rothc_exports.h"
-#include "moja/flint/modulebase.h"
 
-namespace moja {
-namespace flint {
-namespace example {
-namespace rothc {
+#include <moja/flint/modulebase.h>
 
-class ROTHC_API SoilCoverModule : public flint::ModuleBase {
-public:
-	SoilCoverModule() : ModuleBase() {}
-	virtual ~SoilCoverModule() = default;
+namespace moja::flint::example::rothc {
 
-	void configure(const DynamicObject& config) override;
-	void subscribe(NotificationCenter& notificationCenter) override;
+class ROTHC_API SoilCoverModule : public ModuleBase {
+  public:
+   SoilCoverModule() : ModuleBase() {}
+   virtual ~SoilCoverModule() = default;
 
-	void onTimingInit() override;
-	void onTimingStep() override;
+   void configure(const DynamicObject& config) override;
+   void subscribe(NotificationCenter& notificationCenter) override;
 
-private:
-	const flint::IVariable* _soilCover;
-	flint::IVariable* _isSoilCovered;
-	void setSoilCovered();
+   void onTimingInit() override;
+   void onTimingStep() override;
+
+  private:
+   void setSoilCovered();
+
+   const IVariable* _soilCover;
+   IVariable* _isSoilCovered;
 };
 
-}
-}
-}
-} // namespace moja::flint::example:rothc
-
-#endif // MOJA_FLINT_EXAMPLE_ROTHC_SOILCOVERMODULE_H_
+}  // namespace moja::flint::example::rothc

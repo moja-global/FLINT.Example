@@ -8,14 +8,9 @@
 #include <moja/notificationcenter.h>
 #include <moja/signals.h>
 
-#include <boost/format.hpp>
-// #include <moja/flint/uncertaintyvariable.h>
+#include <fmt/format.h>
 
-namespace moja {
-namespace modules {
-namespace chapman_richards {
-
-// --------------------------------------------------------------------------------------------
+namespace moja::modules::chapman_richards {
 
 void AggregatorLandUnit::configure(const DynamicObject& config) {
    system_settings_.tile_index_on = true;
@@ -49,8 +44,6 @@ void AggregatorLandUnit::configure(const DynamicObject& config) {
    }
 }
 
-// --------------------------------------------------------------------------------------------
-
 void AggregatorLandUnit::subscribe(NotificationCenter& notificationCenter) {
    notificationCenter.subscribe(signals::SystemInit, &AggregatorLandUnit::onSystemInit, *this);
    notificationCenter.subscribe(signals::SystemShutdown, &AggregatorLandUnit::onSystemShutdown, *this);
@@ -70,8 +63,6 @@ void AggregatorLandUnit::subscribe(NotificationCenter& notificationCenter) {
    notificationCenter.subscribe(signals::PostDisturbanceEvent, &AggregatorLandUnit::onPostDisturbanceEvent, *this);
 }
 
-// --------------------------------------------------------------------------------------------
-
 void AggregatorLandUnit::onSystemInit() {
    try {
       simulation_unit_data_ = std::static_pointer_cast<SimulationUnitData>(
@@ -85,8 +76,7 @@ void AggregatorLandUnit::onSystemInit() {
              pool->idx());
       }
    } catch (flint::VariableNotFoundException& exc) {
-      const auto str =
-          (boost::format("Variable not found: %1%") % *(boost::get_error_info<flint::VariableName>(exc))).str();
+      const auto str = fmt::format("Variable not found: {}", *(boost::get_error_info<flint::VariableName>(exc)));
       BOOST_THROW_EXCEPTION(flint::LocalDomainError()
                             << flint::Details(str) << flint::LibraryName("moja.modules.chapman_richards")
                             << flint::ModuleName(BOOST_CURRENT_FUNCTION) << flint::ErrorCode(1));
@@ -101,16 +91,13 @@ void AggregatorLandUnit::onSystemInit() {
       throw;
    }
 }
-
-// --------------------------------------------------------------------------------------------
 
 void AggregatorLandUnit::onSystemShutdown() {
    try {
       simulation_unit_data_->end_system_time = DateTime::now();
 
    } catch (flint::VariableNotFoundException& exc) {
-      const auto str =
-          (boost::format("Variable not found: %1%") % *(boost::get_error_info<flint::VariableName>(exc))).str();
+      const auto str = fmt::format("Variable not found: {}", *(boost::get_error_info<flint::VariableName>(exc)));
       BOOST_THROW_EXCEPTION(flint::LocalDomainError()
                             << flint::Details(str) << flint::LibraryName("moja.modules.chapman_richards")
                             << flint::ModuleName(BOOST_CURRENT_FUNCTION) << flint::ErrorCode(1));
@@ -125,8 +112,6 @@ void AggregatorLandUnit::onSystemShutdown() {
       throw;
    }
 }
-
-// --------------------------------------------------------------------------------------------
 
 void AggregatorLandUnit::onLocalDomainInit() {
    try {
@@ -170,7 +155,7 @@ void AggregatorLandUnit::onLocalDomainInit() {
       simulation_unit_data_->lu_count_local_domain = 0;
    } catch (flint::VariableNotFoundException& exc) {
       const auto variable_name = *(boost::get_error_info<flint::VariableName>(exc));
-      const auto str = (boost::format("Variable not found: %1%") % variable_name).str();
+      const auto str = fmt::format("Variable not found: {}", variable_name);
       BOOST_THROW_EXCEPTION(flint::LocalDomainError()
                             << flint::Details(str) << flint::LibraryName("moja.modules.chapman_richards")
                             << flint::ModuleName(BOOST_CURRENT_FUNCTION) << flint::ErrorCode(1));
@@ -186,11 +171,7 @@ void AggregatorLandUnit::onLocalDomainInit() {
    }
 }
 
-// --------------------------------------------------------------------------------------------
-
 void AggregatorLandUnit::onLocalDomainShutdown() { simulation_unit_data_->end_local_domain_time = DateTime::now(); }
-
-// --------------------------------------------------------------------------------------------
 
 void AggregatorLandUnit::onLocalDomainProcessingUnitInit() {
    simulation_unit_data_->start_processing_unit_time = DateTime::now();
@@ -206,13 +187,9 @@ void AggregatorLandUnit::onLocalDomainProcessingUnitInit() {
    //_simulationUnitData->_stock2Results.clear();
 }
 
-// --------------------------------------------------------------------------------------------
-
 void AggregatorLandUnit::onLocalDomainProcessingUnitShutdown() {
    simulation_unit_data_->end_processing_unit_time = DateTime::now();
 }
-
-// --------------------------------------------------------------------------------------------
 
 void AggregatorLandUnit::onPreTimingSequence() {
    try {
@@ -230,7 +207,6 @@ void AggregatorLandUnit::onPreTimingSequence() {
    }
 }
 
-// --------------------------------------------------------------------------------------------
 void AggregatorLandUnit::onTimingInit() {
    try {
       simulation_unit_data_->lu_count_processing_unit++;
@@ -281,22 +257,15 @@ void AggregatorLandUnit::onTimingInit() {
    }
 }
 
-// --------------------------------------------------------------------------------------------
-
 void AggregatorLandUnit::onTimingPostInit() {
    recordStockSet();
    recordFluxSet();
 }
 
-// --------------------------------------------------------------------------------------------
-
 void AggregatorLandUnit::onTimingEndStep() { recordFluxSet(); }
-
-// --------------------------------------------------------------------------------------------
 
 void AggregatorLandUnit::onOutputStep() { recordStockSet(); }
 
-// --------------------------------------------------------------------------------------------
 void AggregatorLandUnit::recordClassifierNames(const DynamicObject& classifierSet) {
    if (!classifier_names_->empty()) {
       return;
@@ -308,8 +277,6 @@ void AggregatorLandUnit::recordClassifierNames(const DynamicObject& classifierSe
       classifier_names_->push_back(name);
    }
 }
-
-// --------------------------------------------------------------------------------------------
 
 void AggregatorLandUnit::onTimingShutdown() {
    try {
@@ -394,18 +361,12 @@ void AggregatorLandUnit::onTimingShutdown() {
    }
 }
 
-// --------------------------------------------------------------------------------------------
-
 void AggregatorLandUnit::onError(std::string msg) {
    fluxes_lu_.clear();  // dump any fluxes stored
    stock_values_lu_.clear();
 }
 
-// --------------------------------------------------------------------------------------------
-
 void AggregatorLandUnit::onPostDisturbanceEvent() { recordFluxSet(); }
-
-// --------------------------------------------------------------------------------------------
 
 void AggregatorLandUnit::recordStockSet() {
    if (!system_settings_.do_stock) return;
@@ -439,8 +400,6 @@ void AggregatorLandUnit::recordStockSet() {
       }
    }
 }
-
-// --------------------------------------------------------------------------------------------
 
 void AggregatorLandUnit::recordFluxSet() {
    try {
@@ -499,5 +458,3 @@ void AggregatorLandUnit::recordFluxSet() {
 }
 
 }  // namespace chapman_richards
-}  // namespace modules
-}  // namespace moja

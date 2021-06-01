@@ -4,11 +4,8 @@
 #include "moja/modules/chapman_richards/foresttype.h"
 
 #include <moja/flint/ilandunitcontroller.h>
-#include <moja/flint/ivariable.h>
 
-namespace moja {
-namespace modules {
-namespace chapman_richards {
+namespace moja::modules::chapman_richards {
 
 // Flint Data Factory
 std::shared_ptr<flint::IFlintData> createForestEventsFactory(const std::string& eventTypeStr, int id,
@@ -46,6 +43,4 @@ void ForestClearEvent::simulate(DisturbanceEventHandler& event_handler) const { 
 
 bool ForestClearEvent::is_clearing() const { return true; }
 
-}  // namespace chapman_richards
-}  // namespace modules
-}  // namespace moja
+}  // namespace moja::modules::chapman_richards

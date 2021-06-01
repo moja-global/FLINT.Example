@@ -11,15 +11,11 @@
 
 #include <functional>
 
-namespace Poco {
-namespace Data {
+namespace Poco::Data {
 class Session;
-}
-}  // namespace Poco
+}  // namespace Poco::Data
 
-namespace moja {
-namespace modules {
-namespace chapman_richards {
+namespace moja::modules::chapman_richards {
 
 class CHAPMAN_RICHARDS_API LandUnitSQLiteWriter : public flint::ModuleBase {
   public:
@@ -80,6 +76,4 @@ class CHAPMAN_RICHARDS_API LandUnitSQLiteWriter : public flint::ModuleBase {
    std::shared_ptr<SimulationUnitData> simulation_unit_data_;
 };
 
-}  // namespace chapman_richards
-}  // namespace modules
-}  // namespace moja
+}  // namespace moja::modules::chapman_richards

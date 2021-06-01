@@ -16,9 +16,7 @@
 
 #include <fmt/format.h>
 
-namespace moja {
-namespace modules {
-namespace chapman_richards {
+namespace moja::modules::chapman_richards {
 
 void DisturbanceEventModule::configure(const DynamicObject& config) {}
 
@@ -94,8 +92,7 @@ void DisturbanceEventModule::simulate(const ForestClearEvent& thin) {
    auto* below_ground_cm = get_cohort_pool(below_ground_cm_->name(), forest_type->name);
 
    auto operation = _landUnitData->createProportionalOperation();
-   operation->addTransfer(above_ground_cm, atmosphere_, 1.0)
-            ->addTransfer(below_ground_cm, atmosphere_, 1.0);
+   operation->addTransfer(above_ground_cm, atmosphere_, 1.0)->addTransfer(below_ground_cm, atmosphere_, 1.0);
 
    _landUnitData->submitOperation(operation);
 }
@@ -105,6 +102,4 @@ void DisturbanceEventModule::disturbanceEventHandler(const flint::EventQueueItem
    disturbance_event->simulate(*this);
 }
 
-}  // namespace chapman_richards
-}  // namespace modules
-}  // namespace moja
+}  // namespace moja::modules::chapman_richards

@@ -122,4 +122,4 @@ ForestTypeList::value_type ForestTypeList::find(int id) const {
    return tree_species == end() ? nullptr : *tree_species;
 }
 
-}  // namespace chapman_richards
+}  // namespace moja::modules::chapman_richards

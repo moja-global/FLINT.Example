@@ -1,14 +1,8 @@
 #include "moja/modules/chapman_richards/runstatistics.h"
 
-#include <moja/logging.h>
-
 #include <Poco/Data/Session.h>
 
-#include <boost/format.hpp>
-
-namespace moja {
-namespace modules {
-namespace chapman_richards {
+namespace moja::modules::chapman_richards {
 
 RunStatistics::RunStatistics()
     : land_unit_valid_counties(0),
@@ -41,6 +35,4 @@ void RunStatistics::writeToSQLite(Poco::Data::Session& session, const std::strin
    }
 }
 
-}  // namespace chapman_richards
-}  // namespace modules
-}  // namespace moja
+}  // namespace moja::modules::chapman_richards

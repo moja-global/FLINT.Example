@@ -1,16 +1,14 @@
 set(PACKAGE "chapman_richards")
 set(LIBNAME "moja.modules.${PACKAGE}")
+string(REPLACE "." "_" NEW_PACKAGE "${PACKAGE}")
 string(TOUPPER "${PACKAGE}" LIBNAME_EXPORT)
 
 include(${CMAKE_MODULE_PATH}/generate_library_version.cmake) 
 
-find_package(Boost COMPONENTS log log_setup REQUIRED)
-message(STATUS "Boost version: ${Boost_VERSION}")
-find_package(fmt CONFIG REQUIRED)
-
 find_package(Poco REQUIRED Foundation JSON Data DataSQLite)
+find_package(Boost COMPONENTS log log_setup REQUIRED)
+find_package(fmt CONFIG REQUIRED)
 find_package(moja REQUIRED COMPONENTS moja.flint)
-
 
 # Set DLL version info
 if (MSVC)
@@ -26,6 +24,8 @@ if (MSVC)
 endif ()
 
 configure_file(../templates/exports.h ${CMAKE_CURRENT_SOURCE_DIR}/include/moja/modules/${PACKAGE}/_modules.${PACKAGE}_exports.h)
+
+# HEADERS AND SOURCE
 
 set(MOJA_CR_headers
 	include/moja/modules/${PACKAGE}/_modules.${PACKAGE}_exports.h
@@ -97,27 +97,27 @@ set(SRCS
 add_library(${LIBNAME} ${LIB_MODE} ${SRCS} ${ProductVersionFiles})
 add_library(${PROJECT_NAME}::${LIBNAME} ALIAS ${LIBNAME})
 
+target_include_directories(${LIBNAME}
+    PUBLIC 
+        $<INSTALL_INTERFACE:include>    
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+
 set_target_properties(${LIBNAME} 
     PROPERTIES
     VERSION ${CR_VERSION} 
 	SOVERSION ${CR_VERSION_MAJOR}
     DEFINE_SYMBOL ${LIBNAME_EXPORT}_EXPORTS)
 
-target_compile_features(${LIBNAME} PUBLIC cxx_std_14)
+target_compile_features(${LIBNAME} PUBLIC cxx_std_17)
 set_target_properties(${LIBNAME} PROPERTIES CXX_EXTENSIONS OFF)	
-
-target_compile_definitions(${LIBNAME} PUBLIC BOOST_ALL_DYN_LINK)
-
-target_include_directories(${LIBNAME} 
-	PRIVATE 
-		include 
-)
 
 target_link_libraries(${LIBNAME} 
 		fmt::fmt-header-only
-		moja::moja.flint moja::moja.core moja::moja.flint.configuration moja::moja.datarepository
-		Poco::Foundation Poco::Data Poco::DataSQLite 
-		Boost::log 
+		Poco::DataSQLite 
+		moja::moja.flint 
 )
 
 if (ENABLE_TESTS)
