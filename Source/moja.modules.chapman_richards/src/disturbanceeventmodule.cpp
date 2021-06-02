@@ -10,6 +10,7 @@
 #include <moja/flint/ioperation.h>
 #include <moja/flint/ipool.h>
 #include <moja/flint/ivariable.h>
+#include <moja/flint/operationdatapackage.h>
 
 #include <moja/notificationcenter.h>
 #include <moja/signals.h>
@@ -91,7 +92,8 @@ void DisturbanceEventModule::simulate(const ForestClearEvent& thin) {
    auto* above_ground_cm = get_cohort_pool(above_ground_cm_->name(), forest_type->name);
    auto* below_ground_cm = get_cohort_pool(below_ground_cm_->name(), forest_type->name);
 
-   auto operation = _landUnitData->createProportionalOperation();
+   DynamicVar operation_data = std::make_shared<flint::OperationDataPackage>(flint::FluxType::Harvest);
+   auto operation = _landUnitData->createProportionalOperation(operation_data);
    operation->addTransfer(above_ground_cm, atmosphere_, 1.0)->addTransfer(below_ground_cm, atmosphere_, 1.0);
 
    _landUnitData->submitOperation(operation);

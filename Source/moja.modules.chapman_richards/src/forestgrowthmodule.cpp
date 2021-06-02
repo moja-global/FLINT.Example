@@ -102,7 +102,7 @@ void ForestGrowthModule::onTimingStep() {
    _landUnitData->submitOperation(production);
 
    DynamicVar turnover_data = std::make_shared<flint::OperationDataPackage>(flint::FluxType::Turnover);
-   auto turnover = _landUnitData->createStockOperation(production_data);
+   auto turnover = _landUnitData->createStockOperation(turnover_data);
    turnover->addTransfer(above_ground_cm, dead_organic_cm, turnover_abg)
        ->addTransfer(above_ground_cm, dead_organic_cm, turnover_bbg);
    _landUnitData->submitOperation(turnover);
