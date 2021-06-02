@@ -57,18 +57,18 @@ void DisturbanceEventModule::simulate(const ForestPlantEvent& plant) {
 
    auto forest_type = forest_types->find(plant.forest_type_id);
 
-   _landUnitData->addPool(fmt::format("{}.{}", above_ground_cm_->name(), forest_type->name), "", "", 1.0, 1, 0.0,
+   _landUnitData->addPool(fmt::format("{} AG", forest_type->name), "", "", 1.0, 1, 0.0,
                           above_ground_cm_);
-   _landUnitData->addPool(fmt::format("{}.{}", below_ground_cm_->name(), forest_type->name), "", "", 1.0, 1, 0.0,
+   _landUnitData->addPool(fmt::format("{} BG", forest_type->name), "", "", 1.0, 1, 0.0,
                           below_ground_cm_);
-   _landUnitData->addPool(fmt::format("{}.{}", dead_organic_cm_->name(), forest_type->name), "", "", 1.0, 1, 0.0,
+   _landUnitData->addPool(fmt::format("{} DOM", forest_type->name), "", "", 1.0, 1, 0.0,
                           dead_organic_cm_);
 
    forest_type_->set_value(std::static_pointer_cast<flint::IFlintData>(forest_type));
 }
 
 flint::IPool* DisturbanceEventModule::get_cohort_pool(const std::string& parent, const std::string& forest_type) {
-   return _landUnitData->getPool(fmt::format("{}.{}", parent, forest_type));
+   return _landUnitData->getPool(fmt::format("{} {}", forest_type, parent));
 }
 
 void DisturbanceEventModule::simulate(const ForestClearEvent& thin) {
@@ -89,8 +89,8 @@ void DisturbanceEventModule::simulate(const ForestClearEvent& thin) {
    auto forest_type = std::static_pointer_cast<const ForestType>(
        forest_type_->value().extract<const std::shared_ptr<flint::IFlintData>>());
 
-   auto* above_ground_cm = get_cohort_pool(above_ground_cm_->name(), forest_type->name);
-   auto* below_ground_cm = get_cohort_pool(below_ground_cm_->name(), forest_type->name);
+   auto* above_ground_cm = get_cohort_pool("AG", forest_type->name);
+   auto* below_ground_cm = get_cohort_pool("BG", forest_type->name);
 
    DynamicVar operation_data = std::make_shared<flint::OperationDataPackage>(flint::FluxType::Harvest);
    auto operation = _landUnitData->createProportionalOperation(operation_data);

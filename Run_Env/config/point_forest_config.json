@@ -153,7 +153,9 @@
 			"settings": {
 				"output_filename": "Forest_Point_Flux.csv",
 				"output_to_screen": false,
-				"output_info_header": true
+				"output_info_header": true,
+				"cohort_show_parent_name": false,
+				"cohort_name_format": "short"
 			}
 		}
 	}

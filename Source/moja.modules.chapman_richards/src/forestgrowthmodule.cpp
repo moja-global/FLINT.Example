@@ -59,7 +59,7 @@ void ForestGrowthModule::onTimingInit() {
 }
 
 flint::IPool* ForestGrowthModule::get_cohort_pool(const std::string& parent, const std::string& forest_type) {
-   return _landUnitData->getPool(fmt::format("{}.{}", parent, forest_type));
+   return _landUnitData->getPool(fmt::format("{} {}", forest_type, parent));
 }
 
 void ForestGrowthModule::onTimingStep() {
@@ -77,9 +77,9 @@ void ForestGrowthModule::onTimingStep() {
                             << flint::Details(str) << flint::LibraryName("moja.modules.chapman_richards")
                             << flint::ModuleName("ForestGrowthModule::updateTreeProperties") << flint::ErrorCode(2));
    }
-   auto* above_ground_cm = get_cohort_pool("aboveGroundCM", forest_type->name);
-   auto* below_ground_cm = get_cohort_pool("belowGroundCM", forest_type->name);
-   auto* dead_organic_cm = get_cohort_pool("deadOrganicCM", forest_type->name);
+   auto* above_ground_cm = get_cohort_pool("AG", forest_type->name);
+   auto* below_ground_cm = get_cohort_pool("BG", forest_type->name);
+   auto* dead_organic_cm = get_cohort_pool("DOM", forest_type->name);
 
    const auto tree_age_end = forest_age_start + step_len_in_yrs;
    const auto starting_biomass = calculate_forest_biomass(forest_type.get(), forest_age_start);
