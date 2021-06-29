@@ -3,7 +3,7 @@
 #
 # Docker to bionic based image for FLINT.Example project
 #
-# Building this Docker: 
+# Building this Docker:
 #    docker build --build-arg NUM_CPU=8 -t moja/flint.example:bionic .
 #
 # ==================================================================================================================
@@ -32,11 +32,11 @@ RUN git clone --depth 1 https://github.com/moja-global/FLINT.Example.git FLINT.E
 	&& make clean \
     && cd $ROOTDIR/src
 
-RUN rm -r $ROOTDIR/src/*    
+RUN rm -r $ROOTDIR/src/*
 RUN rm $ROOTDIR/bin/cmake \
     && rm $ROOTDIR/bin/cpack \
-    && rm $ROOTDIR/bin/ctest   
- 
+    && rm $ROOTDIR/bin/ctest
+
 # ==================================================================================================================
 # Multiple docker - Part 2
 #
@@ -58,10 +58,11 @@ RUN apt-get update -y \
         libgeos-3.6.2 libgeos-c1v5 \
         libcurl4 libexpat1 \
         libxerces-c3.2 \
+        libspatialite-dev \
         libzstd1 bash libpq5 libssl1.1 \
     # Clean up
     && apt-get autoremove -y \
-    && apt-get clean -y \        
+    && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
 
 # set environment variables
@@ -80,9 +81,10 @@ ENV PYTHONPATH $ROOTDIR/lib:$PYTHONPATH
 COPY --from=builder /usr/local/lib/ /usr/local/lib/
 COPY --from=builder /usr/local/bin/ /usr/local/bin/
 COPY --from=builder /usr/local/share/ /usr/local/share/
-COPY --from=builder /usr/local/include/gdal_version.h /usr/local/include 
+COPY --from=builder /usr/local/include/gdal_version.h /usr/local/include
 
 RUN ldconfig
 
 # make symbolic links to modules so they can be found by the moja.cli program
 RUN ln -s /usr/local/lib/libmoja.flint.example.*.so /usr/local/bin
+RUN ln -s /usr/local/lib/libmoja.modules.chapman_richards.so /usr/local/bin

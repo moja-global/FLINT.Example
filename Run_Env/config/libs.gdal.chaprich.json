@@ -1,0 +1,6 @@
+{
+  "Libraries": {
+    "moja.modules.gdal": "external",
+    "moja.modules.chapman_richards": "external"
+  }
+}
