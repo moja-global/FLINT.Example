@@ -23,6 +23,7 @@ Please checkout the [moja global developer docs](https://docs.moja.global/en/lat
 ## Installation Videos
 
 We also have a set of installation videos to help you out with the installation. If you prefer video installation procedure as opposed to textual documentation, this will be a perfect starter for you!
+Click [here](https://www.youtube.com/watch?v=Jfi2-vEhfkg&list=PL_WECUlMWiUkyx5ohT2jglPSa58XmOhgY&index=2&t=23s) to watch the video.
 
 ## TODO
 
