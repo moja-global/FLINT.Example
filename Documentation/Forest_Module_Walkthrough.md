@@ -2,7 +2,6 @@
 
 
 ## 1. INTRODUCTION
-&nbsp;
 
 This guide explores the steps necessary to set up and run a FLINT forest module based on the Chapman-Richards growth function. The Chapman-Richards growth function is a popular model for describing the growth of various tree and forest stand growth variables e.g. tree and stand height, diameter at breast height, basal area and volume.
 
@@ -21,7 +20,6 @@ Further, it was written from Window's Operating System Point Of View, but, the s
 &nbsp;
 ## 2. REQUIREMENTS
 
-&nbsp;
 ### 2.1. Minimum Hardware Requirements
 
 * Intel Core i7 Processor, with Virtualization Support,   
